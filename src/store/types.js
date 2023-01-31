@@ -11,9 +11,6 @@ export const SET_LOGIN_HIDE = "SET_LOGIN_HIDE";
 export const SET_LOGOUT_SHOW = "SET_LOGOUT_SHOW";
 export const SET_LOGOUT_HIDE = "SET_LOGOUT_HIDE";
 
-export const SET_USER_DATA = "SET_USER_DATA";
-export const SET_USER_PROFILE = "SET_USER_PROFILE";
-export const CLEAR_USER_DATA = "CLEAR_USER_DATA";
 
 
 export const GET_FISHES = "GET_FISHES";

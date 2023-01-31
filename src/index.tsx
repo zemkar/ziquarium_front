@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import RegistrationComponent from './auth/components/RegistrationComponent';
+import UserIndex from './user/components/UserIndex';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -20,7 +21,7 @@ root.render(
       <Routes>
           <Route path="/" element={<App />} >
   
-            {/* <Route path="profile" element={< Profile />} /> */}
+            <Route path="profile" element={< UserIndex />} />
             {/* <Route path="protected" element={< ProtectedPage />} /> */}
             {/* <Route path="fish" element={< FishIndex />} /> */}
   

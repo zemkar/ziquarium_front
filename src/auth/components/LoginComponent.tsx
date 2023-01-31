@@ -18,7 +18,7 @@ const LoginComponent = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
 
-    const { isLoginShow } = useAppSelector(state => state.loginLogoutShow);
+    const { isLoginShow } = useAppSelector(state => state.authReducers.loginLogoutShow);
 
     const dispatch: any = useAppDispatch();
 

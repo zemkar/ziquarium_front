@@ -10,7 +10,7 @@ import { userTokens } from '../interfaces';
 const LogoutComponent = () => {
 
 
-    const { isLogOutShow } = useAppSelector(state => state.loginLogoutShow);
+    const { isLogOutShow } = useAppSelector(state => state.authReducers.loginLogoutShow);
     const dispatch: any = useAppDispatch();
 
     useEffect(() => {

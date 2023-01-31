@@ -6,6 +6,7 @@ import Navbar from './navigation/Navbar';
 
 function App() {
 
+
   useEffect(() => {
     console.log("App path:", window.location.pathname);
   }, [])

@@ -7,7 +7,7 @@ import authHeader from "./authHeader";
 const register = (regData: userRegistrationData) => {
   console.log("Send register data:", regData);
 
-  return axios.post(Z_URL.REGISTER, regData);
+  return axios.post(Z_URL.REGISTRATION, regData);
 };
 
 const login = (username: string, password: string) => {

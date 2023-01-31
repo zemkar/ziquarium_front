@@ -7,7 +7,7 @@ const SERVER =  process.env.REACT_APP_URL ? process.env.REACT_APP_URL : "http://
 
 const LOGIN = `${SERVER}api/login/`;
 const LOGOUT = `${SERVER}api/logout/`;
-const REGISTER = `${SERVER}api/register/`;
+const REGISTRATION = `${SERVER}api/registration/`;
 const REFRESH_TOKEN = `${SERVER}api/token/refresh/`;      // refresh access token
 
 const FISH = `${SERVER}api/fishes/`;
@@ -15,17 +15,18 @@ const FISH_PROFILE = `${SERVER}api/fishes-data/`;
 const FISH_CATEGORY = `${SERVER}api/fish_category/`;
 
 
-const USERS = `${SERVER}api/users/`;               // users list
-const PROFILES = `${SERVER}api/users-profiles/`;   // profiles list
+const USERS = `${SERVER}api/users/`;               // users list for admins
+const PROFILES = `${SERVER}api/users-profiles/`;   // profiles list for admins
 
+const USER_PROFILE = `${SERVER}api/user`;         // user profile
 
 const PROTECTED_PAGE = `${SERVER}protected/`
 
 const Z_URL = {
     SERVER,
-    LOGIN, LOGOUT, REGISTER, REFRESH_TOKEN,
+    LOGIN, LOGOUT, REGISTRATION, REFRESH_TOKEN,
     FISH, FISH_PROFILE, FISH_CATEGORY,
-    USERS, PROFILES,
+    USERS, PROFILES, USER_PROFILE,
     PROTECTED_PAGE,
 
 };

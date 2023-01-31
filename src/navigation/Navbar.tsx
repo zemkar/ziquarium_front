@@ -16,7 +16,7 @@ const mainLinks = [
 
 const Navbar = () => {
     const dispatch:any = useAppDispatch()
-    const { user: currentUser } = useAppSelector((state) => state.auth);
+    const { user: currentUser } = useAppSelector((state) => state.authReducers.auth);
     console.log("path:", window.location.pathname);
 
 
