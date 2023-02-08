@@ -18,7 +18,9 @@ const login = (username: string, password: string) => {
     })
     .then((response) => {
       console.log("authService - login \n", response);
-      return response.data;
+      var user = loggedUserStore(response.data)
+      console.log("User to store", user);
+      return user;
     });
 };
 
@@ -52,7 +54,7 @@ const loggedUserStore = (userTokens:userTokens) => {
   var decodedToken: decodedAccess = jwt(userTokens.access)
   var loggedUser = { id: decodedToken.user_id, name: decodedToken.name, editor: decodedToken.editor, exp: decodedToken.exp }
   localStorage.setItem("user", JSON.stringify(loggedUser));
-
+  return loggedUser
 }
 
 const loggedUserRemove = () => {

@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import RegistrationComponent from './auth/components/RegistrationComponent';
 import UserIndex from './user/components/UserIndex';
+import FishIndex from './fish/components/FishIndex';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -23,7 +24,7 @@ root.render(
   
             <Route path="profile" element={< UserIndex />} />
             {/* <Route path="protected" element={< ProtectedPage />} /> */}
-            {/* <Route path="fish" element={< FishIndex />} /> */}
+            <Route path="fish" element={< FishIndex />} />
   
             {/* <Route path="fish/:id"  element={<FishProfile /> } />  */}
             {/* <Route path="tank" element={< TankIndex />} /> */}

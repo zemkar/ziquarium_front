@@ -25,11 +25,11 @@ const modProfile = (userData:userProfile) => {
     user = JSON.parse(user) 
     console.log('modProfile - user', user);
     return axios.put(Z_URL.USER_PROFILE, userData, { headers: authHeader(accessToken) })
-    .then((res) => {
+    .then((res:any) => {
         console.log("userService - modProfile | response: \n", res);
         return res;
     })
-    .catch((err) => {
+    .catch((err:any) => {
         console.log("userService - modProfile | response error: \n", err);
     });
   }

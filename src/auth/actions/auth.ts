@@ -47,14 +47,14 @@ import {
   };
   
   export const login = (username: string, password: string) => (dispatch:any) => {
-    return authService.login(username, password).then(
-      (data: userTokens) => {
+    return authService.login(username, password)
+    .then((data: any) => {
+        
         dispatch({
           type: LOGIN_SUCCESS,
           payload: { user: data },
         });
 
-        authService.loggedUserStore(data)
 
         toast.success("Login success");
   

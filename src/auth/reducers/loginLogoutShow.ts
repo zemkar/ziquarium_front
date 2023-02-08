@@ -9,7 +9,7 @@ const initialState = {isLoginShow: false, isLogOutShow: false};
 
 const loginLogoutShowReducer = (state = initialState, action: { type: string, payload: any }) => {
     const { type, payload } = action;
-    console.log("loginLogoutShowReducer", payload);
+    if (payload) {};
     
 
     switch (type) {

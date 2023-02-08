@@ -11,7 +11,7 @@ const REGISTRATION = `${SERVER}api/registration/`;
 const REFRESH_TOKEN = `${SERVER}api/token/refresh/`;      // refresh access token
 
 const FISH = `${SERVER}api/fishes/`;
-const FISH_PROFILE = `${SERVER}api/fishes-data/`;
+const FISH_PROFILE = `${SERVER}api/fish/`;
 const FISH_CATEGORY = `${SERVER}api/fish_category/`;
 
 
