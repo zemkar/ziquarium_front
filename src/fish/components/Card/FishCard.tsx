@@ -23,13 +23,15 @@ const FishCard = ({ fish }: any) => {
 
 
 
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const showProfile = (isEdit: boolean, isShow: boolean) => {
         // if isEdit = true - open form to edit fish profile
         // else - open fish profile for reading
-        setLoading(true);
+
         if (isShow) {
+            setLoading(true);
+            console.log("loading ON - showProfile");
             if (isEdit) dispatch(showFishEdit())
             else dispatch(showFishProfile());
 
@@ -40,9 +42,13 @@ const FishCard = ({ fish }: any) => {
                     }, (error: any) => {
                         console.log("Fish profile Error: \n", error);
                     })
-                    .finally(() => setLoading(false));
+                    .finally(() => {
+                        setLoading(false);
+                        console.log("loading OFF - showProfile fishData");
+                    });
             } else {
                 setLoading(false);
+                console.log("loading OFF - showProfile !fishData");
                 console.log("data stored");
             }
 
@@ -53,6 +59,7 @@ const FishCard = ({ fish }: any) => {
 
     const changeAmount = (status: boolean) => {
         setLoading(false);
+        console.log("loading OFF - changeAmount");
         if (status) dispatch(showInTankAmount())
         else dispatch(hideFishModals());
     }
@@ -60,6 +67,7 @@ const FishCard = ({ fish }: any) => {
 
     const deleteFishShow = (status: boolean) => {
         setLoading(false);
+        console.log("loading OFF - deleteFishShow");
         if (status) dispatch(showFishDelete())
         else dispatch(hideFishModals());
     }
@@ -89,7 +97,7 @@ const FishCard = ({ fish }: any) => {
                             <div className="d-grid gap-1">
 
                                 <button className="btn btn-outline-primary btn-sm"
-                                    onClick={()=>changeAmount(true)}>
+                                    onClick={() => changeAmount(true)}>
                                     Add/remove fish
                                 </button>
                                 <button className="btn btn-outline-primary btn-sm"
@@ -135,11 +143,12 @@ const FishCard = ({ fish }: any) => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="modal-detail">
-                        <strong> {fish?.name} </strong>
+                        {loading && <span className="spinner-border spinner-border-sm" />}<strong> {fish?.name} </strong>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {loading ? <span className="spinner-border spinner-border-sm"></span> : <DetailCard />}
+                    
+                    {!loading && <>При загрузке оно почему-то не прячется...<DetailCard /></>}
 
                 </Modal.Body>
             </Modal>

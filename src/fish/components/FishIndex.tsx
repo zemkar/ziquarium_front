@@ -18,11 +18,14 @@ const FishIndex = () => {
   useEffect(() => {
     if (!fishes || fishes.length < 1) {
       setLoading(true)
+      console.log("loading ON");
+      
       dispatch(getFishes())
         .then((res: any) => {console.log("FishIndex - useEffect - fishes \n", res)},
           (err:any) => {console.log("FishIndex - useEffect - fishes \n got error:", err)}
         )
-        .finally(()=>{setLoading(false)})
+        .finally(()=>{setLoading(false);
+          console.log("loading OFF");})
     }
   }, [dispatch, fishes])
 
@@ -41,11 +44,11 @@ const FishIndex = () => {
   return (
     <div>
     <Row xs={1} sm={2} md={3} lg={4} xl={5}>
+      {!loading && currentUser && currentUser.editor && <AddFishForm />}
       {fishes?.map((fish: fish, i: number) => <Col key={i.toString()+"c"}><div key={i.toString()+"d"}><FishCard key={i.toString()+"f"} fish={fish}/></div></Col>)}
       {loading && (
                     <><Col></Col><Col><span className="spinner-border spinner-border-sm"></span></Col></>
-                )}
-      {!loading && currentUser && currentUser.editor && <AddFishForm />}</Row>
+                )}</Row>
     </div>
   )
 }

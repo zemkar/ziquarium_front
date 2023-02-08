@@ -13,8 +13,6 @@ const DetailCard = () => {
 
   const category = fishCategories?.filter((e: any) => (e.id === fishData?.category))[0];
 
-  console.log("DetailCard - fish category: \n", typeof(fishData?.category), fishData?.category, "\n", fishCategories, "\n full data: \n", fishData);
-  
 
   return (
     
