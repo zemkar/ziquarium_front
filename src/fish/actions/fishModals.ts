@@ -9,30 +9,29 @@ import {
 
 export const hideFishModals = () => ({
     type: SET_FISH_MODALS_HIDE,
-    payload: { isDeleteShow: false, isEditShow: false, isAddShow: false, isProfileShow: false, isInTankAmountShow:false },
 });
 
-export const showFishDelete = () => ({
+export const showFishDelete = (id:number) => ({
     type: SET_FISH_DELETE_SHOW,
-    payload: { isDeleteShow: true, isEditShow: false, isAddShow: false, isProfileShow: false, isInTankAmountShow:false },
+    payload: { isDeleteShow: {status: true, fishId: id} },
 });
 
-export const showFishEdit = () => ({
+export const showFishEdit = (id:number) => ({
     type: SET_FISH_EDIT_SHOW,
-    payload: { isDeleteShow: false, isEditShow: true, isAddShow: false, isProfileShow: false, isInTankAmountShow:false },
+    payload: { isEditShow: {status: true, fishId: id} },
 });
 
 export const showFishAdd = () => ({
     type: SET_FISH_ADD_SHOW,
-    payload: { isDeleteShow: false, isEditShow: false, isAddShow: true, isProfileShow: false, isInTankAmountShow:false },
+    payload: { isAddShow: true },
 });
 
-export const showFishProfile = () => ({
+export const showFishProfile = (id:number) => ({
     type: SET_FISH_PROFILE_SHOW,
-    payload: { isDeleteShow: false, isEditShow: false, isAddShow: false, isProfileShow: true, isInTankAmountShow:false },
+    payload: { isProfileShow: {status: true, fishId: id} },
 });
 
-export const showInTankAmount = () => ({
+export const showInTankAmount = (id:number) => ({
     type: SET_FISH_AMOUNT_SHOW,
-    payload: { isDeleteShow: false, isEditShow: false, isAddShow: false, isProfileShow: true, isInTankAmountShow:false },
+    payload: { isInTankAmountShow:{status: true, fishId: id} },
 });

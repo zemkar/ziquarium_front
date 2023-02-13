@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import RegistrationComponent from './auth/components/RegistrationComponent';
 import UserIndex from './user/components/UserIndex';
 import FishIndex from './fish/components/FishIndex';
+import TankIndex from './tank/components/TankIndex';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -27,7 +28,7 @@ root.render(
             <Route path="fish" element={< FishIndex />} />
   
             {/* <Route path="fish/:id"  element={<FishProfile /> } />  */}
-            {/* <Route path="tank" element={< TankIndex />} /> */}
+            <Route path="tank" element={< TankIndex />} />
             {/* <Route path="plants" element={< PlantIndex />} /> */}
   
             <Route path="registration" element={< RegistrationComponent />} />

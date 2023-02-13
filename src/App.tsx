@@ -26,8 +26,8 @@ function App() {
         draggable
         pauseOnHover
         theme="light"
-      />
-      <Outlet />
+      /><div className='context'>
+      <Outlet /></div>
     </div>
   );
 }

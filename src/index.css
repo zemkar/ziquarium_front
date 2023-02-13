@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  background-color: rgb(200, 200, 240);
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px #000;
+  margin: 10px;
+  padding: 5px;
+}
+
+.context {
+  min-height: 75vh;
+ margin-top: 5px;
+ background-color: rgb(200, 200, 240) ;
+}
+
+.card {
+  
+  background-color: rgb(230, 230, 250) !important;
+  border-radius: 10px !important;
+}
+
+.list-group-item {
+  
+  background-color: rgb(230, 230, 250) !important;
+}
+
+.nav {
+  padding-left: 10% !important;
+  flex-shrink: 3;
+}

@@ -11,6 +11,7 @@ const REGISTRATION = `${SERVER}api/registration/`;
 const REFRESH_TOKEN = `${SERVER}api/token/refresh/`;      // refresh access token
 
 const FISH = `${SERVER}api/fishes/`;
+const FISH_DATA = `${SERVER}api/fishes-data/`;
 const FISH_PROFILE = `${SERVER}api/fish/`;
 const FISH_CATEGORY = `${SERVER}api/fish_category/`;
 
@@ -25,7 +26,7 @@ const PROTECTED_PAGE = `${SERVER}protected/`
 const Z_URL = {
     SERVER,
     LOGIN, LOGOUT, REGISTRATION, REFRESH_TOKEN,
-    FISH, FISH_PROFILE, FISH_CATEGORY,
+    FISH, FISH_DATA, FISH_PROFILE, FISH_CATEGORY,
     USERS, PROFILES, USER_PROFILE,
     PROTECTED_PAGE,
 

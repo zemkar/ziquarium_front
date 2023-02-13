@@ -16,12 +16,12 @@ const fishesReducer = (state = initialState, action: { type: string, payload?: a
     case CLEAR_FISHES:
       return { fishes: null };
 
-      case FISH_REGISTER_SUCCESS:
-        return { ...state, payload};
+    case FISH_REGISTER_SUCCESS:
+      return { ...state, payload };
 
-        case FISH_REGISTER_FAIL:
-          return { ...state };
-      
+    case FISH_REGISTER_FAIL:
+      return { ...state };
+
     default:
       return state;
   }

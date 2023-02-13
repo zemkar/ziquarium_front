@@ -8,6 +8,10 @@ const getFishes = () => {
     return axios.get(Z_URL.FISH);
 }
 
+const getFishesData = () => {
+    return axios.get(Z_URL.FISH_DATA);
+}
+
 const getFishProfile = (id: number) => {
     return axios.get(Z_URL.FISH_PROFILE, { params: { "id": id } })//`{"id": ${id}}`)
 }
@@ -45,7 +49,7 @@ const modFish = (fishData: fish) => {
 const modFishProfile = (fishProfileData: fishProfileData) => {
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        return axios.put(Z_URL.FISH_PROFILE + fishProfileData.id + "/", fishProfileData, { headers: authHeader(accessToken) })
+        return axios.put(Z_URL.FISH_PROFILE, fishProfileData, { headers: authHeader(accessToken) })
     }
 }
 
@@ -73,6 +77,7 @@ const delFishCategories = (id: number) => {
 
 
 const fishService = {
+    getFishesData,
     getFishes,
     getFishProfile,
     getFishesCategories,

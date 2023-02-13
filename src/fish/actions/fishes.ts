@@ -1,11 +1,12 @@
 
-import { fish, fishProfileData } from "../interfaces";
+import { fishProfileData } from "../interfaces";
 import fishService from "../service/fishService";
 import { toast } from 'react-toastify';
 
 
 import { GET_FISH_PROFILE, 
     GET_FISHES, 
+    GET_FISHES_DATA,
     CLEAR_FISH_PROFILE, 
     GET_FISH_CATEGORIES, 
     FISH_REGISTER_SUCCESS, 
@@ -86,6 +87,9 @@ export const getFishProfile = (id: number) => (dispatch: any) => {
             dispatch({
                 type: CLEAR_FISH_PROFILE,
             });
+            if (err.response.status === 500) {
+                toast.error("Server error")
+            }
             return Promise.reject(err);
         })
 
@@ -111,6 +115,26 @@ export const getFishes = () => async (dispatch: any) => {
             })
 }
 
+export const getFishesData = () => async (dispatch: any) => {
+    return await fishService.getFishesData()
+        .then((res: any) => {
+            console.log("getFishesData res:\n", res);
+            toast.success("Fishes loaded");
+            dispatch({
+                type: GET_FISHES_DATA,
+                payload: res.data,
+            });
+            return res.data;
+        },
+            (err: any) => {
+                if (err.response.status === 500) {
+                    toast.error(err.response.statusText);
+                    return Promise.reject(err.response.statusText);
+                }
+                console.log("getFishesData err:", err);
+            })
+}
+
 export const getFishCategories = () => (dispatch: any) => {
     return fishService.getFishesCategories()
         .then((res) => {
@@ -122,6 +146,9 @@ export const getFishCategories = () => (dispatch: any) => {
         })
         .catch((err) => {
             console.log("getFishCategories error:\n", err);
+            if (err.response.status === 500) {
+                toast.error("Server error")
+            }
         })
 }
 
@@ -129,6 +156,7 @@ export const modFishProfile = (modifiedFishProfile: fishProfileData) => (dispatc
     return fishService.modFishProfile(modifiedFishProfile)
         ?.then((res: any) => {
             console.log("Fish profile modified: \n", res);
+            toast.success("Fishes data updated");
         })
         .catch((err: any) => {
             console.log("Fish profile can't be modified: \n", err);
@@ -136,6 +164,9 @@ export const modFishProfile = (modifiedFishProfile: fishProfileData) => (dispatc
                 dispatch({ type: LOGOUT, });
                 dispatch({type: SET_FISH_MODALS_HIDE});
                 toast.error("Authorization error, please login again");
+            }
+            if (err.response.status === 500) {
+                toast.error("Server error")
             }
         })
 }
@@ -147,5 +178,17 @@ export const deleteFish = (id: number) => (dispatch: any) => {
         toast.warning("Fish deleted");
         dispatch({type: DELETE_FISH});
         dispatch({type: SET_FISH_MODALS_HIDE});
-    }, (err:any) => {console.log("fish - actions - deleteFish error", err);})
+    }, (err:any) => {
+        console.log("fish - actions - deleteFish error", err);
+        if (err.response.status === 401) {
+            dispatch({ type: LOGOUT, });
+            dispatch({type: SET_FISH_MODALS_HIDE});
+            toast.error("Authorization error, please login again");
+        }
+        else if (err.response.status === 500) {
+            toast.error("Server error")
+        }
+        else toast.error("Error");
+        return Promise.reject()
+    })
 }

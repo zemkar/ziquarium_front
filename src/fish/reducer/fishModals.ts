@@ -3,7 +3,13 @@ import {
 } from "../actions/types";
 
 
-const initialState = { isDeleteShow: false, isEditShow: false, isAddShow: false, isProfileShow: false, isInTankAmountShow:false };
+const initialState = { 
+    isDeleteShow: {status: false, fishId: null}, 
+    isEditShow: {status: false, fishId: null}, 
+    isAddShow: false, 
+    isProfileShow: {status: false, fishId: null}, 
+    isInTankAmountShow:{status: false, fishId: null} 
+};
 
 
 const fishesReducer = (state = initialState, action: { type: string, payload?: any }) => {
@@ -11,22 +17,28 @@ const fishesReducer = (state = initialState, action: { type: string, payload?: a
 
     switch (type) {
         case SET_FISH_MODALS_HIDE:
+            console.log("SET_FISH_MODALS_HIDE", {...initialState, payload});
             return initialState;
 
         case SET_FISH_ADD_SHOW:
-            return payload;
+            console.log("SET_FISH_ADD_SHOW", {...initialState, payload});
+            return {...initialState, ...payload};
 
         case SET_FISH_DELETE_SHOW:
-            return payload;
+            console.log("SET_FISH_DELETE_SHOW", {...initialState, payload});
+            return {...initialState, ...payload};
 
         case SET_FISH_EDIT_SHOW:
-            return payload;
+            console.log("SET_FISH_EDIT_SHOW", {...initialState, payload});
+            return {...initialState, ...payload};
 
         case SET_FISH_PROFILE_SHOW:
-            return payload;
+            console.log("SET_FISH_PROFILE_SHOW", {...initialState, payload});
+            return {...initialState, ...payload};
 
         case SET_FISH_AMOUNT_SHOW:
-            return payload;
+            console.log("SET_FISH_AMOUNT_SHOW", {...initialState, payload});
+            return {...initialState, ...payload};
 
         default:
             return state;

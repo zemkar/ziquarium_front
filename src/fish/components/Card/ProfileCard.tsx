@@ -1,12 +1,11 @@
 import React from 'react'
-import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import {useAppSelector } from "../../../store/hooks";
 
-const DetailCard = () => {
+const ProfileCard = () => {
   
   const { fishData } = useAppSelector(state => state.fishesReducer.profile);
   const { fishCategories } = useAppSelector(state => state.fishesReducer.categories);
@@ -16,7 +15,6 @@ const DetailCard = () => {
 
   return (
     
-    <Card >
     <ListGroup className="list-group">
         <ListGroup.Item>
             <Row><Col>Category: </Col><Col>{category?.name ||  "-?-"}</Col></Row>
@@ -59,8 +57,7 @@ const DetailCard = () => {
             <Row><Col style={{ paddingLeft: "5%" }}>Female -  </Col><Col>{fishData?.female_average_length || '-?-'}</Col></Row>
         </ListGroup.Item>
     </ListGroup>
-</Card>
   )
 }
 
-export default DetailCard
+export default ProfileCard

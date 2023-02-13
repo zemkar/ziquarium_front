@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -13,12 +13,11 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import DetailForm from './ProfileForm';
+import ProfileCard from './ProfileForm';
 import { fishCategory } from '../../interfaces';
 import AddCategory from './AddCategory';
-import fishService from '../../service/fishService';
 import { addFish, getFishes, getFishProfile } from '../../actions/fishes';
-import { hideFishModals, showFishAdd, showFishProfile } from '../../actions/fishModals';
+import { hideFishModals, showFishAdd, showFishEdit } from '../../actions/fishModals';
 
 const AddFishForm = () => {
 
@@ -28,10 +27,10 @@ const AddFishForm = () => {
     const { isAddShow } = useAppSelector(state => state.fishesReducer.fishModals);
     const [addNewCategory, setAddNewCategory] = useState<boolean>(false)
 
-    const [isShowAddForm, setShowAddForm] = useState<boolean>(false);
     const [editDetailShow, setEditDetailShow] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [successful, setSuccessful] = useState<boolean>(false);
+
 
     const MAX_FILE_SIZE = 6000000;
     const getExtension = (filename: string) => {
@@ -72,7 +71,8 @@ const AddFishForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        reset
     } = useForm<any>({
         resolver: yupResolver(validationSchema)
     });
@@ -81,22 +81,20 @@ const AddFishForm = () => {
     const onSubmit = (data: any) => {
         setLoading(true);
         setSuccessful(false);
-        console.log("addFish", data);
         data = {'category': data.category,
-            'image': data.image[0],
+            'image': data.image[0] || "",
             'name': data.name,
             'scientific_name': data.scientific_name
         }
 
         dispatch(addFish(data))
             .then((res: any) => {
+                const newFishId:number = res.id
                 setSuccessful(true);
-                console.log("Add Fish \n response: ", res);
                 dispatch(getFishes());
                 dispatch(getFishProfile(res.id))
                     .then((res: any) => {
-                        console.log("Fish profile loaded: \n", res);
-                        dispatch(showFishProfile);
+                        dispatch(showFishEdit(newFishId));
                     }, (error: any) => {
                         console.log("Fish profile Error: \n", error);
                         dispatch(hideFishModals);
@@ -114,21 +112,17 @@ const AddFishForm = () => {
     
     
     const addFishShow = (status:boolean) => { 
+        reset()
+        setSuccessful(false);
         setLoading(false);
         if (status) dispatch(showFishAdd())
         else  dispatch(hideFishModals())
         }
 
 
-    useEffect(() => {
-        console.log("errors", errors);
-
-    }, [errors])
-
-
     return (
         <>
-            <OverlayTrigger overlay={<Tooltip id="tooltip-detail">Click for add new fish</Tooltip>}>
+            <OverlayTrigger overlay={<Tooltip id="tooltip-add-new">Click for add new fish</Tooltip>}>
                 <Card style={{ width: '14rem', margin: "0.5rem" }} onClick={() => addFishShow(true)}>
 
                     <Card.Img
@@ -155,11 +149,11 @@ const AddFishForm = () => {
             <Modal show={isAddShow}
                 onHide={() => addFishShow(false)}
                 dialogClassName="modal-90w"
-                aria-labelledby="modal-detail"
+                aria-labelledby="modal-add-new"
                 size="lg"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title id="modal-detail">
+                    <Modal.Title id="modal-add-new">
                         <strong> Add new fish: </strong>
                     </Modal.Title>
                 </Modal.Header>
@@ -225,7 +219,7 @@ const AddFishForm = () => {
                                             )}
                                             <span>Add</span>
                                         </button>
-                                    </div></div>
+                                        </div></div>
 
                             )}
 
@@ -255,7 +249,7 @@ const AddFishForm = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {loading ? <span className="spinner-border spinner-border-sm"></span> : <DetailForm />}
+                    {loading ? <span className="spinner-border spinner-border-sm"></span> : <ProfileCard />}
 
                 </Modal.Body>
             </Modal>
