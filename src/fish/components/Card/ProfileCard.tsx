@@ -4,12 +4,15 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 import {useAppSelector } from "../../../store/hooks";
+import { fish } from '../../interfaces';
 
 const ProfileCard = () => {
   
-  const { fishData } = useAppSelector(state => state.fishesReducer.profile);
+  const { isProfileShow } = useAppSelector(state => state.fishesReducer.fishModals);
+  const { fishList } = useAppSelector(state => state.fishesReducer.fishes);
   const { fishCategories } = useAppSelector(state => state.fishesReducer.categories);
 
+  var fishData: fish = fishList?.filter((e: any) => { return e.id === isProfileShow.fishId })[0];
   const category = fishCategories?.filter((e: any) => (e.id === fishData?.category))[0];
 
 
@@ -30,6 +33,8 @@ const ProfileCard = () => {
             <Row><Col>Flock: </Col><Col>{fishData?.flock || '-?-'}</Col></Row>
             <hr style={{ margin: "0", padding: "0" }} />
             <Row><Col>Diet: </Col><Col>{fishData?.diet || '-?-'}</Col></Row>
+            <hr style={{ margin: "0", padding: "0" }} />
+            <Row><Col>Care: </Col><Col>{fishData?.care || '-?-'}</Col></Row>
 
             <hr style={{ margin: "0", padding: "0" }} />
             <Row><Col>Temperature:</Col></Row>

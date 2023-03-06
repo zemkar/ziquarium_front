@@ -1,5 +1,10 @@
 import {
-    SET_FISH_MODALS_HIDE, SET_FISH_ADD_SHOW, SET_FISH_DELETE_SHOW, SET_FISH_EDIT_SHOW, SET_FISH_PROFILE_SHOW, SET_FISH_AMOUNT_SHOW
+    FISHES_SET_MODALS_HIDE, 
+    FISHES_SET_ADD_SHOW, 
+    FISHES_SET_DELETE_SHOW, 
+    FISHES_SET_EDIT_SHOW, 
+    FISHES_SET_PROFILE_SHOW, 
+    FISHES_SET_AMOUNT_SHOW
 } from "../actions/types";
 
 
@@ -16,28 +21,28 @@ const fishesReducer = (state = initialState, action: { type: string, payload?: a
     const { type, payload } = action;
 
     switch (type) {
-        case SET_FISH_MODALS_HIDE:
-            console.log("SET_FISH_MODALS_HIDE", {...initialState, payload});
+        case FISHES_SET_MODALS_HIDE:
+            console.log("FISHES_SET_MODALS_HIDE", {...initialState, payload});
             return initialState;
 
-        case SET_FISH_ADD_SHOW:
-            console.log("SET_FISH_ADD_SHOW", {...initialState, payload});
+        case FISHES_SET_ADD_SHOW:
+            console.log("FISHES_SET_ADD_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
-        case SET_FISH_DELETE_SHOW:
-            console.log("SET_FISH_DELETE_SHOW", {...initialState, payload});
+        case FISHES_SET_DELETE_SHOW:
+            console.log("FISHES_SET_DELETE_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
-        case SET_FISH_EDIT_SHOW:
-            console.log("SET_FISH_EDIT_SHOW", {...initialState, payload});
+        case FISHES_SET_EDIT_SHOW:
+            console.log("FISHES_SET_EDIT_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
-        case SET_FISH_PROFILE_SHOW:
-            console.log("SET_FISH_PROFILE_SHOW", {...initialState, payload});
+        case FISHES_SET_PROFILE_SHOW:
+            console.log("FISHES_SET_PROFILE_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
-        case SET_FISH_AMOUNT_SHOW:
-            console.log("SET_FISH_AMOUNT_SHOW", {...initialState, payload});
+        case FISHES_SET_AMOUNT_SHOW:
+            console.log("FISHES_SET_AMOUNT_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
         default:

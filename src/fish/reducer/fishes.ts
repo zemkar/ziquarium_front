@@ -1,25 +1,25 @@
 import {
-  GET_FISHES, CLEAR_FISHES, FISH_REGISTER_SUCCESS, FISH_REGISTER_FAIL
+  FISHES_GET, FISHES_CLEAR, FISHES_REGISTER_SUCCESS, FISHES_REGISTER_FAIL
 } from "../actions/types";
 
 
-const initialState = { fishes: null };
+const initialState = { fishList: null };
 
 
 const fishesReducer = (state = initialState, action: { type: string, payload?: any }) => {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_FISHES:
-      return { fishes: payload };
+    case FISHES_GET:
+      return { fishList: payload };
 
-    case CLEAR_FISHES:
-      return { fishes: null };
+    case FISHES_CLEAR:
+      return { fishList: null };
 
-    case FISH_REGISTER_SUCCESS:
+    case FISHES_REGISTER_SUCCESS:
       return { ...state, payload };
 
-    case FISH_REGISTER_FAIL:
+    case FISHES_REGISTER_FAIL:
       return { ...state };
 
     default:

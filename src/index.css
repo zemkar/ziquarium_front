@@ -38,6 +38,17 @@ code {
 }
 
 .nav {
-  padding-left: 10% !important;
+  padding-left: 5% !important;
   flex-shrink: 3;
+  text-shadow: 1px 1px 1px rgb(17, 0, 255), 0 0 1em rgb(255, 255, 255), 0 0 0.2em rgb(255, 255, 255);
+}
+
+tr:nth-child(odd) {
+  background-color: #0001010e;
+}
+
+.price-block {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
 }

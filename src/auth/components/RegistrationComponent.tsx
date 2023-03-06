@@ -21,6 +21,7 @@ const RegistrationComponent = () => {
     const [errPassword, setErrPassword] = useState([])
     const [errPassword2, setErrPassword2] = useState([])
     const [errEmail, setErrEmail] = useState([])
+    const [errPhone, setErrPhone] = useState([])
     const [successful, setSuccessful] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -33,6 +34,9 @@ const RegistrationComponent = () => {
         email: Yup.string()
             .required('Email is required')
             .email('Email is invalid'),
+        phone: Yup.string()
+            .notRequired()
+            .max(20, "Phone number must not exceed 20 characters"),
         password: Yup.string()
             .required('Password is required')
             .min(8, 'Password must be at least 8 characters')
@@ -40,8 +44,12 @@ const RegistrationComponent = () => {
         password2: Yup.string()
             .required('Confirm Password is required')
             .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
-        first_name: Yup.string(),
-        last_name: Yup.string(),
+        first_name: Yup.string()
+            .notRequired()
+            .max(20, "First name must not exceed 20 characters"),
+        last_name: Yup.string()
+            .notRequired()
+            .max(20, "Last name must not exceed 20 characters"),
     });
 
     const {
@@ -62,39 +70,36 @@ const RegistrationComponent = () => {
         setErrPassword([]);
         setErrPassword2([]);
         setErrEmail([]);
+        setErrPhone([]);
 
 
 
         dispatch(registration(data))
             .then((res: any) => {
                 setSuccessful(true);
-                console.log("Registration \n register=>login \n response: ", res);
                 dispatch(login(data.username, data.password))
                     .then((res: any) => {
                         setLoading(false);
-                        console.log("Registered & Logged In \n", res);
                         navigate('/profile');
                     })
             })
             .catch((err: any) => {
                 setSuccessful(false);
                 setLoading(false);
-                console.log("ERR", err);
                 if (err.email) {
                     setErrEmail(err.email)
-                    console.log("ERROR: email\n", err.email)
+                }
+                if (err.phone) {
+                    setErrPhone(err.phone)
                 }
                 if (err.username) {
                     setErrUsername(err.username)
-                    console.log("ERROR: username\n", err.username)
                 }
                 if (err.password) {
                     setErrPassword(err.password)
-                    console.log("ERROR: password\n", err.password)
                 }
                 if (err.password2) {
                     setErrPassword2(err.password2)
-                    console.log("ERROR: password2\n", err.password2)
                 }
             })
 
@@ -135,6 +140,19 @@ const RegistrationComponent = () => {
                                     <div className="invalid-feedback">
                                         {errors.email?.message}
                                         {errEmail.length > 0 && errEmail.map((err, i) => <div key={i} >{err}</div>)}
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Phone number</label>
+                                    <input
+                                        type="text"
+                                        {...register('phone')}
+                                        className={`form-control ${errors.phone || errPhone.length > 0 ? 'is-invalid' : ''}`}
+                                    />
+                                    <div className="invalid-feedback">
+                                        {errors.phone?.message}
+                                        {errPhone.length > 0 && errPhone.map((err, i) => <div key={i} >{err}</div>)}
                                     </div>
                                 </div>
 
@@ -191,7 +209,7 @@ const RegistrationComponent = () => {
                                 </div></div>
 
                         )}
-                        
+
                     </form>
                 </div>
             </div>

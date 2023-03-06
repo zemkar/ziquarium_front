@@ -10,49 +10,60 @@ const register = (regData: userRegistrationData) => {
   return axios.post(Z_URL.REGISTRATION, regData);
 };
 
-const login = (username: string, password: string) => {
-  return axios
+const login = async (username: string, password: string) => {
+  const response = await axios
     .post(Z_URL.LOGIN, {
       username,
       password,
     })
-    .then((response) => {
-      console.log("authService - login \n", response);
-      var user = loggedUserStore(response.data)
-      console.log("User to store", user);
-      return user;
-    });
+    .then((res:any)=>{
+      console.log("authService - login \n", res);
+      return res},
+      (err:any)=>{
+        console.log("authService - login \n", err);
+        return err});
+  console.log("authService - login \n", response.data);
+  var user = loggedUserStore(response.data);
+  console.log("User to store", user);
+  return user;
 };
 
-const logout = (userTokens:userTokens) => {
+const logout = async (userTokens: userTokens) => {
   console.log("authService - logout\n");
-  return axios
-    .post(Z_URL.LOGOUT, { 'refresh': userTokens.refresh }, {
-      headers: authHeader(userTokens.access),
-    })
-    .then((res) => { console.log("authService - logout success\n", res); })
-    .catch((res) => { console.log("authService - logout error\n", res); })
+  try {
+    const res = await axios
+      .post(Z_URL.LOGOUT, { 'refresh': userTokens.refresh }, {
+        headers: authHeader(userTokens.access),
+      });
+    console.log("authService - logout success\n", res);
+  } catch (res_1) {
+    console.log("authService - logout error\n", res_1);
+  }
 }
 
-const refresh = (userTokens:userTokens) => {
+const refresh = async (userTokens: userTokens) => {
   console.log("can try refresh");
-  return axios
-    .post(Z_URL.REFRESH_TOKEN, { "refresh": userTokens.refresh })
-    .then((response) => {
-      console.log("authService - refresh \n", response.data);
-      userTokens.access = response.data.access
-      return userTokens;
-    });
+  const response = await axios
+    .post(Z_URL.REFRESH_TOKEN, { "refresh": userTokens.refresh });
+  console.log("authService - refresh \n", response.data);
+  userTokens.access = response.data.access;
+  localStorage.setItem("access", userTokens?.access);
+  return userTokens;
 }
 
-const loggedUserStore = (userTokens:userTokens) => {
+const loggedUserStore = (userTokens: userTokens) => {
   console.log("authService - loggedUser Store\n");
   localStorage.setItem("access", userTokens?.access);
   localStorage.setItem("refresh", userTokens?.refresh);
-  
-  
+
+
   var decodedToken: decodedAccess = jwt(userTokens.access)
-  var loggedUser = { id: decodedToken.user_id, name: decodedToken.name, editor: decodedToken.editor, exp: decodedToken.exp }
+  var loggedUser = { 
+    id: decodedToken.user_id, 
+    name: decodedToken.name, 
+    editor: decodedToken.editor, 
+    exp: decodedToken.exp, 
+    admin: decodedToken.admin }
   localStorage.setItem("user", JSON.stringify(loggedUser));
   return loggedUser
 }

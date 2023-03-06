@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import Modal from 'react-bootstrap/Modal';
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { hideLogOut } from '../actions/loginLogoutShow';
 import { logout } from '../actions/auth';
+import { clearPlants } from "../../plants/actions/plants";
 import { userTokens } from '../interfaces';
+import { clearFishes } from '../../fish/actions/fishes';
 
 const LogoutComponent = () => {
 
@@ -13,16 +15,8 @@ const LogoutComponent = () => {
     const { isLogOutShow } = useAppSelector(state => state.authReducers.loginLogoutShow);
     const dispatch: any = useAppDispatch();
 
-    useEffect(() => {
-        console.log("logout - isLogoutShow", isLogOutShow);
-    }, [isLogOutShow])
-
-
-
     const handlerLogout = (event: any) => {
         event.preventDefault();
-        console.log("logout");
-
         var userTokens: userTokens;
         var accessToken: string | null = localStorage.getItem("access")
         var refreshToken: string | null = localStorage.getItem("refresh")
@@ -31,20 +25,14 @@ const LogoutComponent = () => {
 
         dispatch(logout(userTokens));
         dispatch(hideLogOut());
-
-        console.log("Logged Out \n");
+            dispatch(clearPlants());
+            dispatch(clearFishes())
     }
-
-
-
-
 
 const handlerNoLogout = (event: any) => {
     event.preventDefault();
-    console.log("no logout");
     dispatch(hideLogOut());
 }
-
 
 return (
     <>

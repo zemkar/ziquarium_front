@@ -1,5 +1,5 @@
 import {
-    GET_FISH_CATEGORIES, CLEAR_FISH_CATEGORIES
+    FISHES_GET_CATEGORIES, FISHES_CLEAR_CATEGORIES
   } from "../actions/types";
 
   
@@ -10,10 +10,10 @@ const fishCategoriesReducer = (state = initialState, action:{type:string, payloa
     const { type, payload } = action;
   
     switch (type) {
-      case GET_FISH_CATEGORIES:
+      case FISHES_GET_CATEGORIES:
         return { fishCategories: payload };
 
-      case CLEAR_FISH_CATEGORIES:
+      case FISHES_CLEAR_CATEGORIES:
         return { fishCategories: null };
         
       default:

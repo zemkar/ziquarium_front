@@ -1,14 +1,14 @@
 import {
-    ADD_FILTER, CLEAR_FILTER
+    FISHES_ADD_FILTER, FISHES_CLEAR_FILTER
 } from "../actions/types";
 
 
 export const clearFishFilters = () => ({
-    type: CLEAR_FILTER,
+    type: FISHES_CLEAR_FILTER,
 });
 
 export const addFishFilter = (filter:any) => ({
-    type: ADD_FILTER,
+    type: FISHES_ADD_FILTER,
     payload: filter,
 });
 

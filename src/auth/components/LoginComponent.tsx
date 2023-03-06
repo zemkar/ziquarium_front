@@ -4,12 +4,14 @@ import Modal from 'react-bootstrap/Modal';
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { hideLogin, showLogin } from '../actions/loginLogoutShow';
 import { login } from "../actions/auth";
+import { clearPlants } from "../../plants/actions/plants";
 
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { userLoginData } from '../interfaces';
+import { clearFishes } from '../../fish/actions/fishes';
 
 
 const LoginComponent = () => {
@@ -49,12 +51,14 @@ const LoginComponent = () => {
             .then((res: any) => {
                 dispatch(hideLogin());
                 setLoading(false);
-                console.log("Logged In \n", res);
             })
             .catch((res: any) => {
                 dispatch(showLogin());
                 setLoading(false);
-                console.log("NOT Logged In \n", res);
+            })
+            .finally(()=>{
+                dispatch(clearPlants())
+                dispatch(clearFishes())
             });
     };
 

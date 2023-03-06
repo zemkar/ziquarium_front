@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { getFishes, getFishCategories, getFishesData } from '../actions/fishes';
+import { getFishes, getFishCategories } from '../actions/fishes';
 import { fish } from '../interfaces';
 import AddFishForm from './Card/AddFishForm';
 import FishCard from './Card/FishCard';
@@ -13,7 +13,7 @@ const FishIndex = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [fishesToPrint, setFishesToPrint] = useState<any[]>([])
 
-  const { fishes } = useAppSelector(state => state.fishesReducer.fishes);
+  const { fishList } = useAppSelector(state => state.fishesReducer.fishes);
   const { fishCategories } = useAppSelector(state => state.fishesReducer.categories);
   const { user: currentUser } = useAppSelector(state => state.authReducers.auth)
   const { categoryFilter } = useAppSelector(state => state.fishesReducer.fishFilters);
@@ -22,19 +22,18 @@ const FishIndex = () => {
 
   // Load fish data
   useEffect(() => {
-    if (!fishes || fishes.length < 1) {
+    if (!fishList || fishList.length < 1) {
       setLoading(true)
 
       dispatch(getFishes())
         .then((res: any) => {},
-          (err: any) => { console.log("FishIndex - useEffect - fishes \n got error:", err) }
+          (err: any) => { console.log("FishIndex - useEffect - fishList \n got error:", err) }
         )
         .finally(() => {
           setLoading(false);
         })
-      dispatch(getFishesData())
     }
-  }, [dispatch, fishes])
+  }, [dispatch, fishList])
 
 // Load fish categories
   useEffect(() => {
@@ -49,12 +48,12 @@ const FishIndex = () => {
 // Filter by category
   useEffect(() => {
     if (+categoryFilter !== 0) {
-      setFishesToPrint(fishes.filter((fish: any) => { return +fish.category === +categoryFilter }));
+      setFishesToPrint(fishList.filter((fish: any) => { return +fish.category === +categoryFilter }));
     }
     else {
-      setFishesToPrint(fishes);
+      setFishesToPrint(fishList);
     }
-  }, [categoryFilter, fishes])
+  }, [categoryFilter, fishList])
   
 
 

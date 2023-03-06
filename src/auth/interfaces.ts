@@ -13,6 +13,7 @@ export interface userRegistrationData {
   email: string,
   password: string,
   password2: string,
+  phone?: string,
   first_name?: string,
   last_name?: string
 }
@@ -21,5 +22,6 @@ export interface decodedAccess {
    user_id: number, 
    name: string, 
    editor: boolean, 
-   exp: number
+   exp: number,
+   admin: boolean
   }

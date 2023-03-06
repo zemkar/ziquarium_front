@@ -1,19 +1,18 @@
 import axios from "axios";
 import Z_URL from "../../service/constants";
 import authHeader from "../../auth/service/authHeader";
-import { fish, fishCategory, fishProfileData } from "../interfaces";
+import { fish, fishCategory } from "../interfaces";
 
 
 const getFishes = () => {
+    
+    var accessToken: string | null = localStorage.getItem('access')
+    if (accessToken) {
+        console.log("fishService - getFishes for user");
+        return axios.get(Z_URL.FISH, { headers: authHeader(accessToken) })
+    }
+    console.log("fishService - getFishes for anonymous");
     return axios.get(Z_URL.FISH);
-}
-
-const getFishesData = () => {
-    return axios.get(Z_URL.FISH_DATA);
-}
-
-const getFishProfile = (id: number) => {
-    return axios.get(Z_URL.FISH_PROFILE, { params: { "id": id } })//`{"id": ${id}}`)
 }
 
 const getFishesCategories = () => {
@@ -46,13 +45,6 @@ const modFish = (fishData: fish) => {
     }
 }
 
-const modFishProfile = (fishProfileData: fishProfileData) => {
-    var accessToken: string | null = localStorage.getItem('access')
-    if (accessToken) {
-        return axios.put(Z_URL.FISH_PROFILE, fishProfileData, { headers: authHeader(accessToken) })
-    }
-}
-
 const modFishCategories = (categoriesData: fishCategory) => {
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
@@ -77,14 +69,11 @@ const delFishCategories = (id: number) => {
 
 
 const fishService = {
-    getFishesData,
     getFishes,
-    getFishProfile,
     getFishesCategories,
     addFish,
     addFishCategory,
     modFish,
-    modFishProfile,
     modFishCategories,
     delFish,
     delFishCategories,

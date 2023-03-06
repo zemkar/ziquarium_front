@@ -1,9 +1,10 @@
-import React, { FormEvent, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { Navigate } from 'react-router-dom';
 import UserService from "../service/userService";
 
-import { loadUserProfile } from "../actions/user";
+import { dropLogin } from "../../auth/actions/auth";
+import { loadUserProfile, clearStoreUserProfile, deleteUserProfile } from "../actions/user";
 import { userProfile } from "../interface";
 
 
@@ -17,11 +18,11 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [saveLoading, setSaveLoading] = useState(false);
 
-  const [Profile, setProfile] = useState<userProfile | undefined>()
+  const [StateProfile, setStateProfile] = useState<userProfile | undefined>()
   // ({location:"", birthDate:"", bio:"", username:"", email:"", first_name:"", last_name:""})
 
   const [email, setEmail] = useState("")
-  const [username, setUsername] = useState("") 
+  const [username, setUsername] = useState("")
   const [firstName, setFirstName] = useState("") // to load
   const [lastName, setLastName] = useState("") // to load
 
@@ -38,46 +39,87 @@ const Profile = () => {
   const onChangeBirthDate = (e: any) => { const birthDate = e.target.value; setBirthDate(birthDate); };
   const onChangeBio = (e: any) => { const bio = e.target.value; setBio(bio); };
 
-  const handlerSaveProfile = (event: FormEvent<HTMLFormElement>) => {
+
+  const [clickedButton, setClickedButton] = useState('');
+
+  const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
+    const button: HTMLButtonElement = event.currentTarget;
+    if (button.name === "save") {
+      handlerSaveProfile()
+    } else if (button.name === "delete") {
+      handlerDeleteProfile()
+    }
+    setClickedButton(button.name);
+  };
+
+  const handlerSaveProfile = () => { //event: FormEvent<HTMLFormElement>
+    console.log("save pressed");
+
+    // event.preventDefault();
     setSaveLoading(true)
-    if (Profile && (
-        firstName !== Profile.first_name || 
-        lastName !== Profile.last_name || 
-        bio !== Profile.bio || 
-        location !== Profile.location || 
-        birthDate !== Profile.birth_date)) {
+    if (StateProfile && (
+      firstName !== StateProfile.first_name ||
+      lastName !== StateProfile.last_name ||
+      bio !== StateProfile.bio ||
+      location !== StateProfile.location ||
+      birthDate !== StateProfile.birth_date)) {
 
       if (birthDate === '') { setBirthDate(null) }
 
       var profileData = {
-        location: location, 
-        birth_date: birthDate, 
-        bio: bio, 
-        username: username, 
-        email: email, 
-        first_name: firstName, 
-        last_name: lastName}
+        location: location,
+        birth_date: birthDate,
+        bio: bio,
+        username: username,
+        email: email,
+        first_name: firstName,
+        last_name: lastName,
+        is_superuser: profile.is_superuser
+      }
 
       UserService.modProfile(profileData)
-        .finally(() => setSaveLoading(false))
-      
-    }
+        .finally(() => {
+          fillUserProfile();
+          setSaveLoading(false);
+        })
+
+      setClickedButton("")
+    } else { setSaveLoading(false) }
+  }
+
+  const handlerDeleteProfile = () => { //event: FormEvent<HTMLFormElement>
+    // event.preventDefault();
+    setSaveLoading(true)
+    if (StateProfile) {
+
+      dispatch(deleteUserProfile())
+      dispatch(dropLogin())
+      setSaveLoading(false)
+
+      setClickedButton("")
+    } else { setSaveLoading(false) }
   }
 
 
   // const logOut = useCallback(() => dispatch(logout() as any), [dispatch]);
   const fillUserProfile = useCallback(() => {
-      dispatch(loadUserProfile())
-        .then(
-          (response: any) => {
-            setProfile(response.data)
-            console.log("Profile - loadUserData | user response:\n", response.data);
-          },
-          (error: any) => {
-            console.log("Profile - loadUserData | user ERROR:", error);
-          }
-        );
+    dispatch(loadUserProfile())
+      .then(
+        (response: any) => {
+          setStateProfile(response.data)
+          console.log("Profile - loadUserData | user response:\n", response.data);
+        },
+        (error: any) => {
+          console.log("Profile - loadUserData | user ERROR:", error);
+        }
+      );
+  }, [dispatch])
+
+  const clearUserProfile = useCallback(() => {
+    dispatch(clearStoreUserProfile())
+    setStateProfile(undefined)
   }, [dispatch])
 
 
@@ -88,31 +130,38 @@ const Profile = () => {
       console.log("useEffect in Profile, go get user");
       fillUserProfile()
     } else {
-      setProfile(profile);
+      console.log("User for profile:", currentUser);
+      if (!currentUser || currentUser?.id !== profile.id) {
+        console.log("IDs:", currentUser?.id, profile.id);
+
+        clearUserProfile()
+      }
+
+      setStateProfile(profile);
     }
-  }, [profile, fillUserProfile]);
+  }, [profile, fillUserProfile, currentUser, clearUserProfile]);
 
 
   useEffect(() => {
-    if (Profile && loading) {
+    if (StateProfile && loading) {
       console.log("loaded", loading);
-      console.log("Profile user in store", Profile);
-      setEmail(Profile.email)
-      setUsername(Profile.username)
-      setFirstName(Profile.first_name)
-      setLastName(Profile.last_name)
-      setLocation(Profile.location)
-      setBirthDate(Profile.birth_date ? Profile.birth_date : "")
-      setBio(Profile.bio)
+      console.log("Profile user in store", StateProfile);
+      setEmail(StateProfile.email || "")
+      setUsername(StateProfile.username || "")
+      setFirstName(StateProfile.first_name || "")
+      setLastName(StateProfile.last_name || "")
+      setLocation(StateProfile.location || "")
+      setBirthDate(StateProfile.birth_date ? StateProfile.birth_date : "")
+      setBio(StateProfile.bio || "")
 
       setLoading(false)
     }
-  }, [loading,Profile])
+  }, [loading, StateProfile])
 
   return (
     <div className="col-md-12">
       {!currentUser && <Navigate to="/" />}
-      <div className="card card-container" style={{ width: "20rem" }}>
+      <div className="card card-container" style={{ width: "30rem" }}>
         <header className="jumbotron card-header">
           <h3>
             <strong>{currentUser?.name}</strong> Profile
@@ -121,14 +170,14 @@ const Profile = () => {
 
         {/*  */}
         {/* <div className="card card-container"> */}
-        <form onSubmit={handlerSaveProfile}>
+        <form>
           {loading && <span className="spinner-border spinner-border-sm"></span>}
           <p>
-            <strong>Id:</strong> {currentUser?.id} | <strong>Is editor:</strong> {currentUser?.editor ? "yes" : "No"}
+            <strong>Id:</strong> {currentUser?.id} | <strong>Is editor:</strong> {currentUser?.editor ? "yes" : "No"} | <strong>Is admin:</strong> {currentUser?.admin ? "yes" : "No"}
           </p>
           <p>
             <strong>Email:</strong>
-            <input className="form-control" aria-label="E-mail" defaultValue={Profile?.email} disabled readOnly />
+            <input className="form-control" aria-label="E-mail" defaultValue={StateProfile?.email} disabled readOnly />
           </p>
           <p>
             <strong>First name:</strong>
@@ -150,12 +199,23 @@ const Profile = () => {
             <strong>Bio:</strong>
             <textarea className="form-control" aria-label="Bio" rows={3} value={bio} onChange={onChangeBio} />
           </p>
-          <button className="btn btn-primary btn-block" disabled={loading}>
-            {saveLoading && (
-              <span className="spinner-border spinner-border-sm"></span>
-            )}
-            Save</button>
         </form>
+        <button onClick={buttonHandler} name="save" className="btn btn-primary btn-block" disabled={loading}>
+          {saveLoading && (
+            <span className="spinner-border spinner-border-sm"></span>
+          )}
+          Save</button>
+        <hr />
+
+        <button onClick={buttonHandler} name="delete" className="btn btn-danger btn-block" disabled={loading} >
+          {saveLoading && (
+            <span className="spinner-border spinner-border-sm"></span>
+          )}
+          Delete</button>
+
+        {clickedButton !== ""
+          ? `You have clicked "${clickedButton}"`
+          : "No button clicked yet"}
       </div>
     </div>
   );

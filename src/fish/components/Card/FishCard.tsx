@@ -7,29 +7,31 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Modal from 'react-bootstrap/Modal';
 
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { getFishProfile } from '../../actions/fishes';
 import ProfileCard from './ProfileCard';
 import ProfileForm from './ProfileForm';
 import DeleteForm from './DeleteForm';
 import { hideFishModals, showFishDelete, showFishEdit, showFishProfile, showInTankAmount } from '../../actions/fishModals';
 import ChangeAmount from './ChangeAmount';
+import Z_URL from '../../../service/constants';
+import SaleCard from '../../../shop/components/ToBuyCard';
+
+import { hideSaleModals, showSaleCard, showSaleEditor } from '../../../shop/actions/shopModals';
+import SaleEditor from '../../../shop/components/SaleEditor';
 
 
 const FishCard = ({ fish }: any) => {
     const dispatch: any = useAppDispatch();
 
-    const { fishData } = useAppSelector(state => state.fishesReducer.profile);
-    const { fishes_data } = useAppSelector(state => state.fishesReducer.fishesData);
     const { isDeleteShow, isEditShow, isProfileShow, isInTankAmountShow } = useAppSelector(state => state.fishesReducer.fishModals);
     const { user: currentUser } = useAppSelector(state => state.authReducers.auth)
+    const { isSaleDataShow, isSaleEditorShow } = useAppSelector(state => state.shopReducer.shopModalReducer);
+    const { shopItemsData } = useAppSelector(state => state.shopReducer.shopItemsReducer);
+    const saleData = shopItemsData?.filter((e: any) => { return e.shop_item === fish.id })[0]
+    // console.log("sale data:", fish.id, saleData);
+
 
     const [loading, setLoading] = useState<boolean>(false);
 
-    var data:any = fishes_data?.filter((e:any) => {return e.fish === fish.id})[0];
-    
-    
-    
-    
     const showProfile = (isEdit: boolean, isShow: boolean) => {
         // if isEdit = true - open form to edit fish profile
         // else - open fish profile for reading
@@ -38,17 +40,7 @@ const FishCard = ({ fish }: any) => {
             setLoading(true);
             if (isEdit) dispatch(showFishEdit(fish.id))
             else dispatch(showFishProfile(fish.id));
-
-            if (!fishData || fishData.id !== fish.id) {
-                dispatch(getFishProfile(fish.id))
-                    .then(
-                        (res: any) => {console.log("Fish profile loaded: \n", res)}, 
-                        (error: any) => {console.log("Fish profile Error: \n", error)}
-                        )
-                    .finally(() => {setLoading(false)});
-            } else {
-                setLoading(false);
-            }
+            setLoading(false);
         } else dispatch(hideFishModals())
     }
 
@@ -60,8 +52,19 @@ const FishCard = ({ fish }: any) => {
         else dispatch(hideFishModals());
     }
 
+    const toSaleData = (status: boolean) => {
+        if (status) dispatch(showSaleCard(fish.id))
+        else dispatch(hideSaleModals());
+    }
+
+    const toSaleEditor = (status: boolean) => {
+        if (status) dispatch(showSaleEditor(fish.id))
+        else dispatch(hideSaleModals());
+    }
+
+
     const deleteFishShow = (status: boolean) => {
-        setLoading(false); 
+        setLoading(false);
         if (status) dispatch(showFishDelete(fish.id))
         else dispatch(hideFishModals());
     }
@@ -73,27 +76,47 @@ const FishCard = ({ fish }: any) => {
 
                     <Card.Img
                         variant="top"
-                        src={fish?.image || "/media/SomeFish.png"}
+                        src={Z_URL.SERVER + (fish?.image || "/media/SomeFish.png")}
                         width='100%'
                         onClick={() => showProfile(false, true)}
                     />
 
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item onClick={() => showProfile(false, true)}>
-                            <strong> {fish?.name} </strong> ({data?.fish_value | 0}) pts/fish<br />
-                            {fish?.scientific_name || "___"}
+                            <strong> {fish?.name} </strong> {fish?.fish_value > 0 && <><br /> ({fish?.fish_value} pts)</>}<br />
+                            {fish?.scientific_name}
                         </ListGroup.Item>
+
+                        <ListGroup className='d-grid gap-1'>
+                            {saleData?.price && saleData.price > 0 ? 
+                                <div className='price-block'>
+                                    <div style={{color: saleData?.sale_status ? "red" : "black"}}> ₪{saleData?.price} {saleData?.sale_status && <sup>-{saleData?.sale_discount}%</sup>}</div>  
+                                    <div>| In stock: {saleData?.quantity}</div>
+                                </div> : "Not in sell"}
+                        </ListGroup>
 
                         <ListGroup.Item>
                             <div className="d-grid gap-1">
 
                                 <button className="btn btn-outline-primary btn-sm"
                                     onClick={() => toChangeAmount(true)}>
-                                    Add/remove fish
+                                    Add to tank
                                 </button>
+
+                                <div className="btn-group">
+                                    <button className="btn btn-outline-primary btn-sm"
+                                        onClick={() => toSaleData(true)} disabled={saleData?.price && saleData.price <= 0}>
+                                        To buy
+                                    </button>{currentUser && currentUser.admin &&
+                                        <button className="btn btn-outline-success btn-sm"
+                                            onClick={() => toSaleEditor(true)}>
+                                            Edit
+                                        </button>}
+                                </div>
+
                                 <button className="btn btn-outline-primary btn-sm"
                                     onClick={goToFullProfile}>
-                                    Fish page
+                                    Fish page (WIP)
                                 </button>
 
                                 {currentUser && currentUser.editor &&
@@ -106,6 +129,7 @@ const FishCard = ({ fish }: any) => {
                                             onClick={() => deleteFishShow(true)}>
                                             Delete
                                         </button>
+
                                     </div>
                                 }
                             </div>
@@ -138,7 +162,7 @@ const FishCard = ({ fish }: any) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    
+
                     {!loading && <><ProfileCard /></>}
 
                 </Modal.Body>
@@ -231,6 +255,66 @@ const FishCard = ({ fish }: any) => {
 
             {/* ********************************************************************************** */}
             {/* ******************************* END DELETE FISH ********************************** */}
+            {/* ********************************************************************************** */}
+
+
+
+            {/* ********************************************************************************** */}
+            {/* *********************************** SALE DATA ************************************ */}
+            {/* ********************************************************************************** */}
+
+            <Modal show={isSaleDataShow.itemId === fish.id && isSaleDataShow.status}
+                onHide={() => toSaleData(false)}
+                dialogClassName="modal-90w"
+                aria-labelledby="modal-amount"
+                size="lg"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="modal-amount">
+                        <strong> {fish?.name} </strong>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {loading ?
+                        <span className="spinner-border spinner-border-sm"></span>
+                        : <SaleCard />
+                    }
+
+                </Modal.Body>
+            </Modal>
+
+            {/* ********************************************************************************** */}
+            {/* ******************************* END  SALE DATA  ********************************** */}
+            {/* ********************************************************************************** */}
+
+
+
+            {/* ********************************************************************************** */}
+            {/* *********************************** SALE EDITOR ********************************** */}
+            {/* ********************************************************************************** */}
+
+            <Modal show={isSaleEditorShow.itemId === fish.id && isSaleEditorShow.status}
+                onHide={() => toSaleEditor(false)}
+                dialogClassName="modal-90w"
+                aria-labelledby="modal-amount"
+                size="lg"
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="modal-amount">
+                        <strong> {fish?.name} </strong>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {loading ?
+                        <span className="spinner-border spinner-border-sm"></span>
+                        : <SaleEditor />
+                    }
+
+                </Modal.Body>
+            </Modal>
+
+            {/* ********************************************************************************** */}
+            {/* ******************************* END  SALE EDITOR ********************************* */}
             {/* ********************************************************************************** */}
         </>
     )

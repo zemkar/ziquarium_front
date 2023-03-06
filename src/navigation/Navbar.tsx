@@ -11,6 +11,7 @@ const mainLinks = [
     { "title": "Tank", "link": "/tank", "icon": <img src='icons/aquarium.svg' alt='' /> },
     { "title": "Plants", "link": "/plants", "icon": <img src='icons/plant.svg' alt='' /> },
     { "title": "closed", "link": "/protected", "icon": <img src='icons/aquarium.svg' alt='' /> },
+    { "title": "Cart", "link": "/cart", "icon": <img src='icons/shopping_cart.svg' alt='' /> },
     // {"title": "", "link": "", "icon":< />},
 ]
 

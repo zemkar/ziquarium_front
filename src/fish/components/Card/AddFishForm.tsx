@@ -16,8 +16,8 @@ import * as Yup from 'yup';
 import ProfileCard from './ProfileForm';
 import { fishCategory } from '../../interfaces';
 import AddCategory from './AddCategory';
-import { addFish, getFishes, getFishProfile } from '../../actions/fishes';
-import { hideFishModals, showFishAdd, showFishEdit } from '../../actions/fishModals';
+import { addFish, getFishes } from '../../actions/fishes';
+import { hideAddCategoryWindow, hideFishModals, showAddCategoryWindow, showFishAdd, showFishEdit } from '../../actions/fishModals';
 
 const AddFishForm = () => {
 
@@ -25,7 +25,7 @@ const AddFishForm = () => {
     const dispatch: any = useAppDispatch();
     const { fishCategories } = useAppSelector(state => state.fishesReducer.categories);
     const { isAddShow } = useAppSelector(state => state.fishesReducer.fishModals);
-    const [addNewCategory, setAddNewCategory] = useState<boolean>(false)
+    const { status:showAddCategory } = useAppSelector(state => state.fishesReducer.fishAddCategoryReducer);
 
     const [editDetailShow, setEditDetailShow] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
@@ -92,23 +92,23 @@ const AddFishForm = () => {
                 const newFishId:number = res.id
                 setSuccessful(true);
                 dispatch(getFishes());
-                dispatch(getFishProfile(res.id))
-                    .then((res: any) => {
-                        dispatch(showFishEdit(newFishId));
-                    }, (error: any) => {
-                        console.log("Fish profile Error: \n", error);
-                        dispatch(hideFishModals);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                dispatch(showFishEdit(newFishId));
             }, (err: any) => {
                 setSuccessful(false);
                 setLoading(false);
                 console.log("ERR", err);
                 dispatch(hideFishModals);
             })
+                    .finally(() => {
+                        setLoading(false);
+                    });
     };
+    
+
+    const handlerShowAddCategory = (status:boolean) => {
+        if (status) dispatch(showAddCategoryWindow())
+        else dispatch(hideAddCategoryWindow())
+    }
     
     
     const addFishShow = (status:boolean) => { 
@@ -158,7 +158,7 @@ const AddFishForm = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body><div className="d-grid gap-1">
-                    {!addNewCategory &&
+                    {!showAddCategory &&
                         <form onSubmit={handleSubmit(onSubmit)}>
                             {!successful && (
                                 <div>
@@ -196,8 +196,8 @@ const AddFishForm = () => {
                                                 <option key={cat.id} value={cat.id}>{cat.name}</option>) || <option value='1'>undefined</option>}
                                         </select>
                                         &nbsp; &nbsp;
-                                        {!addNewCategory &&
-                                            <Button variant="outline-success" onClick={() => { setAddNewCategory(prev => !prev) }} size="sm">
+                                        {!showAddCategory &&
+                                            <Button variant="outline-success" onClick={() => { handlerShowAddCategory(true)  }} size="sm">
                                                 Create new category
                                             </Button>}
                                     </div>
@@ -226,11 +226,11 @@ const AddFishForm = () => {
                         </form>}
 
 
-                    {addNewCategory && <Button variant="outline-success" onClick={() => { setAddNewCategory(prev => !prev) }} size="sm">
+                    {showAddCategory && <Button variant="outline-success" onClick={() => { handlerShowAddCategory(false) }} size="sm">
                         Back to new fish registration
                     </Button>} &nbsp;
 
-                    {addNewCategory && <AddCategory />}
+                    {showAddCategory && <AddCategory />}
                 </div>
                 </Modal.Body>
             </Modal>

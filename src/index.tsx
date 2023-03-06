@@ -13,6 +13,8 @@ import RegistrationComponent from './auth/components/RegistrationComponent';
 import UserIndex from './user/components/UserIndex';
 import FishIndex from './fish/components/FishIndex';
 import TankIndex from './tank/components/TankIndex';
+import PlantsIndex from './plants/components/PlantsIndex';
+import Cart from './shop/components/Cart';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -29,7 +31,8 @@ root.render(
   
             {/* <Route path="fish/:id"  element={<FishProfile /> } />  */}
             <Route path="tank" element={< TankIndex />} />
-            {/* <Route path="plants" element={< PlantIndex />} /> */}
+            <Route path="cart" element={< Cart />} />
+            <Route path="plants" element={< PlantsIndex />} />
   
             <Route path="registration" element={< RegistrationComponent />} />
           </Route>
