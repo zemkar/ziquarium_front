@@ -7,7 +7,7 @@ import {
 
 
 export const changeFishAmount = (fishId: number, amount: number, value: number) => (dispatch: any) => {
-    console.log("changeFishAmount", { id: fishId, amount: amount, value: value });
+    // console.log("changeFishAmount", { id: fishId, amount: amount, value: value });
 
     if (amount > 0) {
         dispatch({
@@ -24,7 +24,7 @@ export const changeFishAmount = (fishId: number, amount: number, value: number) 
 }
 
 export const changePlantAmount = (plantId: number, amount: number, value: number) => (dispatch: any) => {
-    console.log("changeFishAmount", { id: plantId, amount: amount, value: value });
+    // console.log("changeFishAmount", { id: plantId, amount: amount, value: value });
 
     if (amount > 0) {
         dispatch({
@@ -41,7 +41,7 @@ export const changePlantAmount = (plantId: number, amount: number, value: number
 }
 
 export const fillTank = (tankContent: any) => (dispatch: any) => {
-    console.log("fillTank tankContent", tankContent);
+    // console.log("fillTank tankContent", tankContent);
 
     dispatch({
         type: FILL_TANK,
@@ -50,7 +50,7 @@ export const fillTank = (tankContent: any) => (dispatch: any) => {
 }
 
 export const removeFishesFromTank = () => (dispatch: any) => {
-    console.log("removeFishesFromTank");
+    // console.log("removeFishesFromTank");
 
     dispatch({
         type: REMOVE_ALL_FISH_FROM_TANK,
@@ -58,7 +58,7 @@ export const removeFishesFromTank = () => (dispatch: any) => {
 }
 
 export const removePlantsFromTank = () => (dispatch: any) => {
-    console.log("removeFishesFromTank");
+    // console.log("removeFishesFromTank");
 
     dispatch({
         type: REMOVE_ALL_PLANTS_FROM_TANK,

@@ -8,11 +8,11 @@ const getPlants = () => {
     
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        console.log("plantService - getPlants for user");
+        // console.log("plantService - getPlants for user");
         return axios.get(Z_URL.PLANTS, { headers: authHeader(accessToken) })
     }
 
-    console.log("plantService - getPlants for anonymous");
+    // console.log("plantService - getPlants for anonymous");
     return axios.get(Z_URL.PLANTS);
 }
 
@@ -26,7 +26,7 @@ const getPlantsCategories = () => {
 const addPlant = (plantData: plantData) => {
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        console.log("plantService - addPlant", plantData);
+        // console.log("plantService - addPlant", plantData);
         return axios.post(Z_URL.PLANTS, plantData, { headers: {"Content-Type": "multipart/form-data" ,Authorization: "Bearer " + accessToken}  })
     }
 }
@@ -34,7 +34,7 @@ const addPlant = (plantData: plantData) => {
 const addPlantsCategory = (name: string) => {
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        console.log("plantService - addPlantCategory", name);
+        // console.log("plantService - addPlantCategory", name);
         return axios.post(Z_URL.PLANTS_CATEGORY, {name: name}, { headers: authHeader(accessToken) })
     }
 }

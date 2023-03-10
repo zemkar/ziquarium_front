@@ -9,7 +9,7 @@ const fishAddCategoryReducer = (state = initialState, action: { type: string, pa
 
     switch (type) {
         case FISHES_SHOW_ADD_CATEGORY:
-            console.log("FISHES_SHOW_ADD_CATEGORY", payload);
+            // console.log("FISHES_SHOW_ADD_CATEGORY", payload);
             return payload;
 
         default:

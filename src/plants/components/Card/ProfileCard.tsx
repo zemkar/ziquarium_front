@@ -29,7 +29,7 @@ const ProfileCard = () => {
   ]
 
 
-  console.log("profile called", isProfileShow, plantData, plantList);
+  // console.log("profile called", isProfileShow, plantData, plantList);
   return (
 
     <ListGroup className="list-group">

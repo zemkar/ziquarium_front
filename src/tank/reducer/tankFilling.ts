@@ -14,7 +14,7 @@ const mainTankReducer = (state = initialState, action: { type: string, payload?:
     var fishes: itemInTank[];
     var plants: itemInTank[];
     var itemIndex: number;
-    console.log("mainTankReducer called", state, action);
+    // console.log("mainTankReducer called", state, action);
     
 
     switch (type) {
@@ -34,7 +34,7 @@ const mainTankReducer = (state = initialState, action: { type: string, payload?:
             return {...state, fishes};
 
         case REMOVE_ALL_FISH_FROM_TANK:
-            console.log("REMOVE_ALL_FISH_FROM_TANK", { ...initialState, plants: state.plants }); 
+            // console.log("REMOVE_ALL_FISH_FROM_TANK", { ...initialState, plants: state.plants }); 
             localStorage.removeItem('fishes')
             return { ...initialState, plants: state.plants };   // return empty list of fishes and current list of plants
 
@@ -55,18 +55,18 @@ const mainTankReducer = (state = initialState, action: { type: string, payload?:
             return {...state, plants};
 
         case REMOVE_ALL_PLANTS_FROM_TANK:
-            console.log("REMOVE_ALL_PLANTS_FROM_TANK", { ...initialState, fishes: state.fishes }); 
+            // console.log("REMOVE_ALL_PLANTS_FROM_TANK", { ...initialState, fishes: state.fishes }); 
             localStorage.removeItem('plants');
             return { ...initialState, fishes: state.fishes };   // return empty list of plants and current list of fishes
 
         case FILL_TANK:
-            console.log("Fill tank with:", payload);
+            // console.log("Fill tank with:", payload);
             if (payload.fishes) fishes = payload.fishes
             else fishes = []
             if (payload.plants) plants = payload.plants
             else plants = []
             
-            console.log("Fill tank send to state:", {fishes, plants});
+            // console.log("Fill tank send to state:", {fishes, plants});
             return {fishes, plants};
 
 

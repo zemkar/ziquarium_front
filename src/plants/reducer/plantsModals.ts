@@ -17,27 +17,27 @@ const plantsReducer = (state = initialState, action: { type: string, payload?: a
 
     switch (type) {
         case PLANTS_SET_MODALS_HIDE:
-            console.log("PLANTS_SET_MODALS_HIDE", {...initialState, payload});
+            // console.log("PLANTS_SET_MODALS_HIDE", {...initialState, payload});
             return initialState;
 
         case PLANTS_SET_ADD_SHOW:
-            console.log("PLANTS_SET_ADD_SHOW", {...initialState, payload});
+            // console.log("PLANTS_SET_ADD_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
         case PLANTS_SET_DELETE_SHOW:
-            console.log("PLANTS_SET_DELETE_SHOW", {...initialState, payload});
+            // console.log("PLANTS_SET_DELETE_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
         case PLANTS_SET_EDIT_SHOW:
-            console.log("PLANTS_SET_EDIT_SHOW", {...initialState, payload});
+            // console.log("PLANTS_SET_EDIT_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
         case PLANTS_SET_PROFILE_SHOW:
-            console.log("PLANTS_SET_PROFILE_SHOW", {...initialState, payload});
+            // console.log("PLANTS_SET_PROFILE_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
         case PLANTS_SET_AMOUNT_SHOW:
-            console.log("PLANTS_SET_AMOUNT_SHOW", {...initialState, payload});
+            // console.log("PLANTS_SET_AMOUNT_SHOW", {...initialState, payload});
             return {...initialState, ...payload};
 
         default:

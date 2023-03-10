@@ -13,15 +13,15 @@ const plantsFilter = (state = initialState, action: { type: string, payload?: an
 
     switch (type) {
         case PLANTS_CLEAR_FILTER:
-            console.log("PLANTS_CLEAR_FILTER", {initialState, payload });
+            // console.log("PLANTS_CLEAR_FILTER", {initialState, payload });
             return initialState;
 
         case PLANTS_ADD_FILTER:
-            console.log("PLANTS_ADD_FILTER", { ...state, ...payload });
+            // console.log("PLANTS_ADD_FILTER", { ...state, ...payload });
             return { ...state, ...payload };
 
         case PLANTS_REMOVE_FILTER:
-            console.log("PLANTS_REMOVE_FILTER", { ...state, ...payload });
+            // console.log("PLANTS_REMOVE_FILTER", { ...state, ...payload });
             return { ...state, ...payload };
 
         default:

@@ -18,7 +18,7 @@ const ChangeAmount = () => {
   var data:any = plantList?.filter((e:any) => {return e.id === plantId})[0];
 
   const changeAmount = (val: number) => {
-    console.log("data", data, plantList);
+    // console.log("data", data, plantList);
     
     if (val >= 0) {
       if (plantId) dispatch(changePlantAmount(plantId, val, data?.plant_value | 0))}

@@ -11,16 +11,16 @@ import { LOGOUT } from "../../auth/actions/types";
 export const getShopData = () => (dispatch: any) => {
     return shopService.getShopItemsData()
         ?.then((res: any) => {
-            console.log("getShopData:\n", res.data);
-            toast.success("Sale data loaded");
+            // console.log("getShopData:\n", res.data);
+            // toast.success("Sale data loaded");
             dispatch({
                 type: SHOP_GET_ITEMS_SUCCESS,
                 payload: res.data,
             });
             return Promise.resolve(res.data);
         }, (err: any) => {
-            toast.success("Sale data loaded");
-            console.log("getShopData got error: \n", err);
+            toast.error("Sale data loading error");
+            // console.log("getShopData got error: \n", err);
             dispatch({
                 type: SHOP_GET_ITEMS_FAIL,
             });
@@ -39,12 +39,12 @@ export const getShopData = () => (dispatch: any) => {
 export const modShopData = (data: any) => (dispatch: any) => {
     return shopService.modShopItemData(data)
         .then((res: any) => {
-            console.log("Edition saved", res);
-            toast.success("Sale data loaded");
+            // console.log("Edition saved", res);
+            // toast.success("Sale data loaded");
             return Promise.resolve(res.data);
 
         }, (err: any) => {
-            console.log("modShopData fail", err);
+            // console.log("modShopData fail", err);
             toast.warning("Edition fail");
             return Promise.reject(err);
         })

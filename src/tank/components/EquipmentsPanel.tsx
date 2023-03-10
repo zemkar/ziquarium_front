@@ -37,7 +37,7 @@ const EquipmentsPanel = () => {
             light: lightUsed,
             heater: heaterUsed
         }
-        console.log("to save:", tankProps)
+        // console.log("to save:", tankProps)
         dispatch(fillEquipment(tankProps));
         localStorage.setItem('tank', JSON.stringify(tankProps))
     }
@@ -47,7 +47,7 @@ const EquipmentsPanel = () => {
         var tankProps: any = localStorage.getItem('tank');
         if (tankProps) {
             tankProps = JSON.parse(tankProps);
-            console.log("tank props restored", tankProps);
+            // console.log("tank props restored", tankProps);
             
         setTankDimensions(tankProps.dimensions);
         setFilterUsed(tankProps.filter);
@@ -59,7 +59,7 @@ const EquipmentsPanel = () => {
     }
 
     useEffect(() => {
-        console.log("tank props reloaded", dimensions);
+        // console.log("tank props reloaded", dimensions);
         setTankDimensions(dimensions);
         setFilterUsed(filter);
         setCompressorUsed(compressor);

@@ -1,8 +1,10 @@
+import { LOGOUT } from "../../auth/actions/types";
 import {
     SHOP_CHANGE_ITEM_IN_CART,
     SHOP_CLEAR_ITEMS_IN_CART,
     SHOP_REMOVE_ITEM_FROM_CART,
-    SHOP_RESTORE_ITEM_IN_CART
+    SHOP_RESTORE_ITEM_IN_CART,
+    SHOP_CLEAR_ALL
 } from "../actions/types";
 import { cartFiller, itemInCart } from "../interfaces";
 
@@ -38,10 +40,12 @@ const shopCartReducer = (state = initialState, action: { type: string, payload?:
             return { ...state, cartItems };
 
         case SHOP_CLEAR_ITEMS_IN_CART:
-            console.log("REMOVE_ALL_FISH_FROM_TANK", initialState);
             localStorage.removeItem('cartItems')
-            return initialState;   // return empty list of fishes and current list of plants
+            return { cartItems: [] };   // return empty list of fishes and current list of plants
 
+        case SHOP_CLEAR_ALL || LOGOUT:
+            localStorage.removeItem('cartItems')
+            return { cartItems: [] };
 
         default:
             return state;

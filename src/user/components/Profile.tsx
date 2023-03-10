@@ -55,7 +55,7 @@ const Profile = () => {
   };
 
   const handlerSaveProfile = () => { //event: FormEvent<HTMLFormElement>
-    console.log("save pressed");
+    // console.log("save pressed");
 
     // event.preventDefault();
     setSaveLoading(true)
@@ -109,10 +109,10 @@ const Profile = () => {
       .then(
         (response: any) => {
           setStateProfile(response.data)
-          console.log("Profile - loadUserData | user response:\n", response.data);
+          // console.log("Profile - loadUserData | user response:\n", response.data);
         },
         (error: any) => {
-          console.log("Profile - loadUserData | user ERROR:", error);
+          // console.log("Profile - loadUserData | user ERROR:", error);
         }
       );
   }, [dispatch])
@@ -127,12 +127,12 @@ const Profile = () => {
 
   useEffect(() => {
     if (!profile) {
-      console.log("useEffect in Profile, go get user");
+      // console.log("useEffect in Profile, go get user");
       fillUserProfile()
     } else {
-      console.log("User for profile:", currentUser);
+      // console.log("User for profile:", currentUser);
       if (!currentUser || currentUser?.id !== profile.id) {
-        console.log("IDs:", currentUser?.id, profile.id);
+        // console.log("IDs:", currentUser?.id, profile.id);
 
         clearUserProfile()
       }
@@ -144,8 +144,8 @@ const Profile = () => {
 
   useEffect(() => {
     if (StateProfile && loading) {
-      console.log("loaded", loading);
-      console.log("Profile user in store", StateProfile);
+      // console.log("loaded", loading);
+      // console.log("Profile user in store", StateProfile);
       setEmail(StateProfile.email || "")
       setUsername(StateProfile.username || "")
       setFirstName(StateProfile.first_name || "")
@@ -161,7 +161,7 @@ const Profile = () => {
   return (
     <div className="col-md-12">
       {!currentUser && <Navigate to="/" />}
-      <div className="card card-container" style={{ width: "30rem" }}>
+      <div className="card card-container" style={{ width: "30rem", maxWidth: "40vw" }}>
         <header className="jumbotron card-header">
           <h3>
             <strong>{currentUser?.name}</strong> Profile

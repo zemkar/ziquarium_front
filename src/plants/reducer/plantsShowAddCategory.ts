@@ -9,7 +9,7 @@ const plantsAddCategoryReducer = (state = initialState, action: { type: string, 
 
     switch (type) {
         case PLANTS_SHOW_ADD_CATEGORY:
-            console.log("PLANTS_SHOW_ADD_CATEGORY", payload);
+            // console.log("PLANTS_SHOW_ADD_CATEGORY", payload);
             return payload;
 
         default:

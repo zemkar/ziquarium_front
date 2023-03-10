@@ -1,3 +1,6 @@
 
 export const SET_USER_PROFILE = "SET_USER_PROFILE";
 export const CLEAR_USER_PROFILE = "CLEAR_USER_PROFILE";
+
+export const GET_USER_ORDER = "GET_USER_ORDER";
+export const CLEAR_USER_ORDER = "CLEAR_USER_ORDER";

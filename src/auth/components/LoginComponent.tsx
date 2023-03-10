@@ -46,7 +46,7 @@ const LoginComponent = () => {
 
     const onSubmit = (data: userLoginData) => {
         setLoading(true);
-        console.log(data);
+        // console.log(data);
         dispatch(login(data.username, data.password))
             .then((res: any) => {
                 dispatch(hideLogin());

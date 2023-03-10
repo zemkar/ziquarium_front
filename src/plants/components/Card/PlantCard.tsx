@@ -13,9 +13,10 @@ import ProfileForm from './ProfileForm';
 import { hidePlantModals, showPlantDelete, showPlantEdit, showPlantProfile, showInTankAmount } from '../../actions/plantsModals';
 import ChangeAmount from './ChangeAmount';
 import Z_URL from '../../../service/constants';
-import SaleCard from '../../../shop/components/ToBuyCard';
-import { hideSaleModals, showSaleCard, showSaleEditor } from '../../../shop/actions/shopModals';
+import ToBuyCard from '../../../shop/components/ToBuyCard';
+import { hideSaleModals, showToBuyCard, showSaleEditor } from '../../../shop/actions/shopModals';
 import SaleEditor from '../../../shop/components/SaleEditor';
+import { formatPrice } from '../../../shop/service/shopService';
 
 
 const PlantCard = ({ plant }: any) => {
@@ -41,7 +42,7 @@ const PlantCard = ({ plant }: any) => {
         } else dispatch(hidePlantModals())
     }
 
-    const goToFullProfile = () => { console.log("goToFullProfile WIP"); }
+    // const goToFullProfile = () => { console.log("goToFullProfile WIP"); }
 
     const toChangeAmount = (status: boolean) => {
         setLoading(false);
@@ -51,7 +52,7 @@ const PlantCard = ({ plant }: any) => {
 
     const toSaleData = (status: boolean) => {
 
-        if (status) dispatch(showSaleCard(plant.id))
+        if (status) dispatch(showToBuyCard(plant.id))
         else dispatch(hideSaleModals());
     }
 
@@ -88,7 +89,7 @@ const PlantCard = ({ plant }: any) => {
                                 <ListGroup className='d-grid gap-1'>
                             {saleData?.price && saleData.price > 0 ? 
                                 <div className='price-block'>
-                                    <div style={{color: saleData?.sale_status ? "red" : "black"}}> ₪{saleData?.price} {saleData?.sale_status && <sup>-{saleData?.sale_discount}%</sup>}</div>  
+                                    <div style={{color: saleData?.sale_status ? "red" : "black"}}> ${formatPrice(saleData?.price)} {saleData?.sale_status && <sup>-{saleData?.sale_discount}%</sup>}</div>  
                                     <div>| In stock: {saleData?.quantity}</div>
                                 </div> : "Not in sell"}
                         </ListGroup>
@@ -113,11 +114,11 @@ const PlantCard = ({ plant }: any) => {
                                                 Edit
                                             </button>}
                                     </div>
-
+{/* 
                                     <button className="btn btn-outline-primary btn-sm"
                                         onClick={goToFullProfile}>
                                         Plant page (WIP)
-                                    </button>
+                                    </button> */}
 
                                     {currentUser && currentUser.editor && currentUser.admin &&
                                         <div className="btn-group">
@@ -276,7 +277,7 @@ const PlantCard = ({ plant }: any) => {
                 <Modal.Body>
                     {loading ?
                         <span className="spinner-border spinner-border-sm"></span>
-                        : <SaleCard />
+                        : <ToBuyCard />
                     }
 
                 </Modal.Body>

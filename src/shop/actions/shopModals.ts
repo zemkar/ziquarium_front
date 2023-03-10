@@ -14,7 +14,7 @@ export const hideSaleModals = () => ({
     type: SHOP_SET_MODALS_HIDE,
 });
 
-export const showSaleCard = (id:number) => ({
+export const showToBuyCard = (id:number) => ({
     type: SHOP_SET_SALE_DATA_SHOW,
     payload: { isSaleDataShow: {status: true, itemId: id} },
 });

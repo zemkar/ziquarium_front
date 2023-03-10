@@ -16,7 +16,7 @@ const PlantFilters = () => {
   }
 
   useEffect(() => {
-    console.log("categoryFilter", categoryFilter)
+    // console.log("categoryFilter", categoryFilter)
   }, [categoryFilter])
   
   return (

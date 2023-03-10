@@ -22,7 +22,7 @@ import { LOGOUT } from "../../auth/actions/types";
 export const addFish = (fishData: any) => (dispatch: any) => {
     return fishService.addFish(fishData)
         ?.then((res: any) => {
-            console.log("addFish res:\n", res.data);
+            // console.log("addFish res:\n", res.data);
             toast.success("Fish registered");
             dispatch({
                 type: FISHES_REGISTER_SUCCESS,
@@ -31,7 +31,7 @@ export const addFish = (fishData: any) => (dispatch: any) => {
             return Promise.resolve<fish>(res.data);
         }, (err: any) => {
             toast.error("Can't registering fish");
-            console.log("addFish got error: \n", err);
+            // console.log("addFish got error: \n", err);
             dispatch({
                 type: FISHES_REGISTER_FAIL,
             });
@@ -50,7 +50,7 @@ export const addFish = (fishData: any) => (dispatch: any) => {
 export const addCategory = (categoryName: string) => (dispatch: any) => {
     return fishService.addFishCategory(categoryName)
         ?.then((res: any) => {
-            console.log("fish - actions - addCategory res", res.data);
+            // console.log("fish - actions - addCategory res", res.data);
             toast.success("Category added");
             dispatch({
                 type: FISHES_ADD_CATEGORY,
@@ -58,7 +58,7 @@ export const addCategory = (categoryName: string) => (dispatch: any) => {
             })
             return Promise.resolve<any>(res.data)
         }, (err: any) => {
-            console.log("fish - actions - addCategory Error", err);
+            // console.log("fish - actions - addCategory Error", err);
             if (err.response.status === 400) {
                 toast.error("Already exist")
             }
@@ -76,9 +76,8 @@ export const addCategory = (categoryName: string) => (dispatch: any) => {
 export const getFishes = () => async (dispatch: any) => {
     return await fishService.getFishes()
         .then((res: any) => {
-            console.log("getFishes res:\n", res);
+            // console.log("getFishes res:\n", res);
             if (res.data.length > 0) {
-            toast.success("Fishes loaded");
             dispatch({
                 type: FISHES_GET,
                 payload: res.data,
@@ -97,13 +96,13 @@ export const getFishes = () => async (dispatch: any) => {
                     toast.error(err.response.statusText);
                     return Promise.reject(err.response.statusText);
                 }
-                console.log("getFishes err:", err);
+                // console.log("getFishes err:", err);
             })
 }
 export const getFishCategories = () => (dispatch: any) => {
     return fishService.getFishesCategories()
         .then((res) => {
-            console.log("getFishCategories res:\n", res.data);
+            // console.log("getFishCategories res:\n", res.data);
             if (res.data.length > 0) {
             dispatch({
                 type: FISHES_GET_CATEGORIES,
@@ -116,7 +115,7 @@ export const getFishCategories = () => (dispatch: any) => {
             });}
         })
         .catch((err) => {
-            console.log("getFishCategories error:\n", err);
+            // console.log("getFishCategories error:\n", err);
             if (err.response.status === 500) {
                 toast.error("Server error")
             }
@@ -125,12 +124,12 @@ export const getFishCategories = () => (dispatch: any) => {
 export const deleteFish = (id: number) => (dispatch: any) => {
     return fishService.delFish(id)
     ?.then((res:any) => {
-        console.log("fish - actions - deleteFish res", res);
+        // console.log("fish - actions - deleteFish res", res);
         toast.warning("Fish deleted");
         dispatch({type: FISHES_DELETE});
         dispatch({type: FISHES_SET_MODALS_HIDE});
     }, (err:any) => {
-        console.log("fish - actions - deleteFish error", err);
+        // console.log("fish - actions - deleteFish error", err);
         if (err.response.status === 401) {
             dispatch({ type: LOGOUT, });
             dispatch({type: FISHES_SET_MODALS_HIDE});
@@ -147,12 +146,12 @@ export const deleteFish = (id: number) => (dispatch: any) => {
 
 
 export const modFish = (fishData: any) => (dispatch: any) => {
-    console.log("DATA TO MOD:", fishData);
+    // console.log("DATA TO MOD:", fishData);
     
     return fishService.modFish(fishData)
         ?.then((res: any) => {
-            console.log("DATA AFTER MOD:\n", res.data);
-            toast.success("Fish edited");
+            // console.log("DATA AFTER MOD:\n", res.data);
+            toast.success("Fish saved");
             dispatch({
                 type: FISHES_EDIT_PROFILE_SUCCESS,
                 payload: res.data,
@@ -160,7 +159,7 @@ export const modFish = (fishData: any) => (dispatch: any) => {
             return Promise.resolve<fish>(res.data);
         }, (err: any) => {
             toast.error("Can't edit fish");
-            console.log("modPlant got error: \n", err);
+            // console.log("modPlant got error: \n", err);
             dispatch({
                 type: FISHES_EDIT_PROFILE_FAIL,
             });

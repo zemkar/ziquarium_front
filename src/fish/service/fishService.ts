@@ -8,10 +8,10 @@ const getFishes = () => {
     
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        console.log("fishService - getFishes for user");
+        // console.log("fishService - getFishes for user");
         return axios.get(Z_URL.FISH, { headers: authHeader(accessToken) })
     }
-    console.log("fishService - getFishes for anonymous");
+    // console.log("fishService - getFishes for anonymous");
     return axios.get(Z_URL.FISH);
 }
 
@@ -24,7 +24,7 @@ const getFishesCategories = () => {
 const addFish = (fishData: fish) => {
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        console.log("fishService - addFish", fishData);
+        // console.log("fishService - addFish", fishData);
         return axios.post(Z_URL.FISH, fishData, { headers: {"Content-Type": "multipart/form-data" ,Authorization: "Bearer " + accessToken}  })
     }
 }
@@ -32,7 +32,7 @@ const addFish = (fishData: fish) => {
 const addFishCategory = (name: string) => {
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        console.log("fishService - addFishCategory", name);
+        // console.log("fishService - addFishCategory", name);
         return axios.post(Z_URL.FISH_CATEGORY, {name: name}, { headers: authHeader(accessToken) })
     }
 }

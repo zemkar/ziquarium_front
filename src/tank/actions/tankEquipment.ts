@@ -5,7 +5,7 @@ import { equipmentInTank, compressorUsed, filterUsed, light, tankDimensions } fr
 
 
 export const fillEquipment = (equipment: equipmentInTank) => (dispatch: any) => {
-    console.log("fillTank tankContent", equipment);
+    // console.log("fillTank tankContent", equipment);
     
     dispatch({
         type: FILL_EQUIPMENT,
@@ -14,7 +14,7 @@ export const fillEquipment = (equipment: equipmentInTank) => (dispatch: any) => 
 }
 
 export const changeCompressorEquipment = (equipment: compressorUsed) => (dispatch: any) => {
-    console.log("change equipment", equipment)
+    // console.log("change equipment", equipment)
     dispatch({
         type: CHANGE_EQUIPMENT,
         payload: {compressor: equipment},
@@ -22,7 +22,7 @@ export const changeCompressorEquipment = (equipment: compressorUsed) => (dispatc
 }
 
 export const changeFilterEquipment = (equipment: filterUsed) => (dispatch: any) => {
-    console.log("change equipment", equipment)
+    // console.log("change equipment", equipment)
     dispatch({
         type: CHANGE_EQUIPMENT,
         payload: {filter: equipment},
@@ -30,7 +30,7 @@ export const changeFilterEquipment = (equipment: filterUsed) => (dispatch: any) 
 }
 
 export const changeLightEquipment = (equipment: light) => (dispatch: any) => {
-    console.log("change equipment", equipment)
+    // console.log("change equipment", equipment)
     dispatch({
         type: CHANGE_EQUIPMENT,
         payload: {light: equipment},
@@ -38,7 +38,7 @@ export const changeLightEquipment = (equipment: light) => (dispatch: any) => {
 }
 
 export const changeDimensionsEquipment = (equipment: tankDimensions) => (dispatch: any) => {
-    console.log("change equipment", equipment)
+    // console.log("change equipment", equipment)
     dispatch({
         type: CHANGE_EQUIPMENT,
         payload: {dimensions: equipment},
@@ -47,7 +47,7 @@ export const changeDimensionsEquipment = (equipment: tankDimensions) => (dispatc
 
 
 export const removeEquipment = (equipment: compressorUsed) => (dispatch: any) => {
-    console.log("change equipment", equipment)
+    // console.log("change equipment", equipment)
     dispatch({
         type: REMOVE_ALL_EQUIPMENT,
     })

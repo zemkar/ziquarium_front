@@ -27,7 +27,9 @@ const FishIndex = () => {
 
       dispatch(getFishes())
         .then((res: any) => {},
-          (err: any) => { console.log("FishIndex - useEffect - fishList \n got error:", err) }
+          (err: any) => { 
+            // console.log("FishIndex - useEffect - fishList \n got error:", err) 
+          }
         )
         .finally(() => {
           setLoading(false);
@@ -40,7 +42,9 @@ const FishIndex = () => {
     if (!fishCategories || fishCategories.length < 1) {
       dispatch(getFishCategories())
         .then((res: any) => {},
-          (err: any) => { console.log("FishIndex - useEffect - fishCategories \n got error:", err) }
+          (err: any) => { 
+            // console.log("FishIndex - useEffect - fishCategories \n got error:", err)
+           }
         )
     }
   }, [dispatch, fishCategories])

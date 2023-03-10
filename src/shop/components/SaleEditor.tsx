@@ -17,7 +17,7 @@ const SaleEditor = () => {
     const { shopItemsData } = useAppSelector(state => state.shopReducer.shopItemsReducer); // price, quantity in stock and etc
     var sellData: any = shopItemsData?.filter((e: any) => { return e.shop_item === isSaleEditorShow?.itemId })[0];
 
-    console.log("SaleEditor", sellData);
+    // console.log("SaleEditor", sellData);
 
     const validationSchema = Yup.object().shape({});
     const {
@@ -30,13 +30,15 @@ const SaleEditor = () => {
 
     const onSubmit = (data: any) => {
         data["shop_item"] = sellData?.shop_item
-        console.log("data to mod", data);
+        // console.log("data to mod", data);
         dispatch(modShopData(data))
             .then(
                 (res: any) => {
                     dispatch(getShopData());
                 },
-                (err: any) => { console.log("modShopData Error:", err); }
+                (err: any) => { 
+                    // console.log("modShopData Error:", err); 
+                }
             )
             .finally(()=>{dispatch(hideSaleModals())})
     }

@@ -13,10 +13,11 @@ import DeleteForm from './DeleteForm';
 import { hideFishModals, showFishDelete, showFishEdit, showFishProfile, showInTankAmount } from '../../actions/fishModals';
 import ChangeAmount from './ChangeAmount';
 import Z_URL from '../../../service/constants';
-import SaleCard from '../../../shop/components/ToBuyCard';
+import ToBuyCard from '../../../shop/components/ToBuyCard';
 
-import { hideSaleModals, showSaleCard, showSaleEditor } from '../../../shop/actions/shopModals';
+import { hideSaleModals, showToBuyCard, showSaleEditor } from '../../../shop/actions/shopModals';
 import SaleEditor from '../../../shop/components/SaleEditor';
+import { formatPrice } from '../../../shop/service/shopService';
 
 
 const FishCard = ({ fish }: any) => {
@@ -53,7 +54,7 @@ const FishCard = ({ fish }: any) => {
     }
 
     const toSaleData = (status: boolean) => {
-        if (status) dispatch(showSaleCard(fish.id))
+        if (status) dispatch(showToBuyCard(fish.id))
         else dispatch(hideSaleModals());
     }
 
@@ -90,12 +91,12 @@ const FishCard = ({ fish }: any) => {
                         <ListGroup className='d-grid gap-1'>
                             {saleData?.price && saleData.price > 0 ? 
                                 <div className='price-block'>
-                                    <div style={{color: saleData?.sale_status ? "red" : "black"}}> ₪{saleData?.price} {saleData?.sale_status && <sup>-{saleData?.sale_discount}%</sup>}</div>  
+                                    <div style={{color: saleData?.sale_status ? "red" : "black"}}> ${formatPrice(saleData?.price)} {saleData?.sale_status && <sup>-{saleData?.sale_discount}%</sup>}</div>  
                                     <div>| In stock: {saleData?.quantity}</div>
                                 </div> : "Not in sell"}
                         </ListGroup>
 
-                        <ListGroup.Item>
+                        {fish?.id !== 0 && <ListGroup.Item>
                             <div className="d-grid gap-1">
 
                                 <button className="btn btn-outline-primary btn-sm"
@@ -113,11 +114,11 @@ const FishCard = ({ fish }: any) => {
                                             Edit
                                         </button>}
                                 </div>
-
+{/* 
                                 <button className="btn btn-outline-primary btn-sm"
                                     onClick={goToFullProfile}>
                                     Fish page (WIP)
-                                </button>
+                                </button> */}
 
                                 {currentUser && currentUser.editor &&
                                     <div className="btn-group">
@@ -133,7 +134,7 @@ const FishCard = ({ fish }: any) => {
                                     </div>
                                 }
                             </div>
-                        </ListGroup.Item>
+                        </ListGroup.Item>}
 
                     </ListGroup>
 
@@ -277,7 +278,7 @@ const FishCard = ({ fish }: any) => {
                 <Modal.Body>
                     {loading ?
                         <span className="spinner-border spinner-border-sm"></span>
-                        : <SaleCard />
+                        : <ToBuyCard />
                     }
 
                 </Modal.Body>

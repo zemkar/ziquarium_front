@@ -1,6 +1,8 @@
+import { LOGOUT } from "../../auth/actions/types";
 import {
   SHOP_GET_ITEMS_SUCCESS,
   SHOP_GET_ITEMS_FAIL,
+  SHOP_CLEAR_ALL,
 } from "../actions/types";
 
 
@@ -14,9 +16,11 @@ const shopItemsReducer = (state = initialState, action: { type: string, payload?
     case SHOP_GET_ITEMS_SUCCESS:
       return { shopItemsData: payload };
 
-      case SHOP_GET_ITEMS_FAIL:
-        return { shopItemsData: null };
-  
+    case SHOP_GET_ITEMS_FAIL:
+      return { shopItemsData: null };
+
+    case SHOP_CLEAR_ALL || LOGOUT:
+      return { shopItemsData: null }
     default:
       return state;
   }

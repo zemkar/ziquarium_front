@@ -52,3 +52,15 @@ tr:nth-child(odd) {
   justify-content: space-between;
   box-sizing: border-box;
 }
+
+.order-status-C {
+  background-color: rgba(78, 248, 129, 0.586);
+}
+
+.order-status-P {
+  background-color: rgba(248, 203, 78, 0.586);
+}
+
+.pseudo-button {
+  cursor: pointer;
+}

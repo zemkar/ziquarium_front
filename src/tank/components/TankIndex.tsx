@@ -21,7 +21,7 @@ const TankIndex = () => {
   }
 
   const changeAmount = (isFish: boolean, id: number, amount: number, itemValue: number) => {
-    console.log("changeAmount", id, amount, itemValue);
+    // console.log("changeAmount", id, amount, itemValue);
     if (id && (amount || amount === 0) && (itemValue || itemValue === 0)) {
       if (amount >= 0) {
         if (isFish) {
@@ -49,7 +49,7 @@ const TankIndex = () => {
         {fishes?.length > 0 ? <button onClick={clearFishList} >Remove all fish</button> : "No fish in tank"}
         {fishes && fishes.map((fishInTank: itemInTank, i: number) => {
           var fishInList = fishList?.filter((fishFromList: any) => { return fishFromList.id === fishInTank.id })[0]
-          console.log("TankIndex - fish in map:", fishInTank, "\n fish:", fishInList);
+          // console.log("TankIndex - fish in map:", fishInTank, "\n fish:", fishInList);
           return (<p key={i}>
             {fishInTank.id + ") " + fishInList?.name + " " + fishInTank.amount + " pts."}
             <button onClick={() => changeAmount(true, fishInTank.id, fishInTank.amount - 5, fishInTank.value || 0)} disabled={(fishInTank === undefined) || (fishInTank.amount < 6)}>-5</button>

@@ -15,6 +15,9 @@ import FishIndex from './fish/components/FishIndex';
 import TankIndex from './tank/components/TankIndex';
 import PlantsIndex from './plants/components/PlantsIndex';
 import Cart from './shop/components/Cart';
+import Order from './shop/components/Order';
+import Hompage from './homepage/components/Hompage';
+import ThankYou from './shop/components/ThankYou';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -24,15 +27,17 @@ root.render(
     <BrowserRouter>
       <Routes>
           <Route path="/" element={<App />} >
-  
+            <Route  index element={<Hompage />} />
             <Route path="profile" element={< UserIndex />} />
+            <Route path="ty" element={< ThankYou />} />
             {/* <Route path="protected" element={< ProtectedPage />} /> */}
             <Route path="fish" element={< FishIndex />} />
   
             {/* <Route path="fish/:id"  element={<FishProfile /> } />  */}
             <Route path="tank" element={< TankIndex />} />
-            <Route path="cart" element={< Cart />} />
             <Route path="plants" element={< PlantsIndex />} />
+            <Route path="cart" element={< Cart />} />
+            <Route path="order" element={< Order />} />
   
             <Route path="registration" element={< RegistrationComponent />} />
           </Route>

@@ -15,9 +15,9 @@ const FishFilters = () => {
     dispatch(addFishFilter({categoryFilter:category}))
   }
 
-  useEffect(() => {
-    console.log("categoryFilter", categoryFilter)
-  }, [categoryFilter])
+  // useEffect(() => {
+  //   console.log("categoryFilter", categoryFilter)
+  // }, [categoryFilter])
   
   return (
     <div>

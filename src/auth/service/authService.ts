@@ -5,7 +5,7 @@ import { decodedAccess, userRegistrationData, userTokens } from "../interfaces";
 import authHeader from "./authHeader";
 
 const register = (regData: userRegistrationData) => {
-  console.log("Send register data:", regData);
+  // console.log("Send register data:", regData);
 
   return axios.post(Z_URL.REGISTRATION, regData);
 };
@@ -17,42 +17,42 @@ const login = async (username: string, password: string) => {
       password,
     })
     .then((res:any)=>{
-      console.log("authService - login \n", res);
+      // console.log("authService - login \n", res);
       return res},
       (err:any)=>{
-        console.log("authService - login \n", err);
+        // console.log("authService - login \n", err);
         return err});
-  console.log("authService - login \n", response.data);
+  // console.log("authService - login \n", response.data);
   var user = loggedUserStore(response.data);
-  console.log("User to store", user);
+  // console.log("User to store", user);
   return user;
 };
 
 const logout = async (userTokens: userTokens) => {
-  console.log("authService - logout\n");
+  // console.log("authService - logout\n");
   try {
     const res = await axios
       .post(Z_URL.LOGOUT, { 'refresh': userTokens.refresh }, {
         headers: authHeader(userTokens.access),
       });
-    console.log("authService - logout success\n", res);
+    // console.log("authService - logout success\n", res);
   } catch (res_1) {
-    console.log("authService - logout error\n", res_1);
+    // console.log("authService - logout error\n", res_1);
   }
 }
 
 const refresh = async (userTokens: userTokens) => {
-  console.log("can try refresh");
+  // console.log("can try refresh");
   const response = await axios
     .post(Z_URL.REFRESH_TOKEN, { "refresh": userTokens.refresh });
-  console.log("authService - refresh \n", response.data);
+  // console.log("authService - refresh \n", response.data);
   userTokens.access = response.data.access;
   localStorage.setItem("access", userTokens?.access);
   return userTokens;
 }
 
 const loggedUserStore = (userTokens: userTokens) => {
-  console.log("authService - loggedUser Store\n");
+  // console.log("authService - loggedUser Store\n");
   localStorage.setItem("access", userTokens?.access);
   localStorage.setItem("refresh", userTokens?.refresh);
 
@@ -69,7 +69,7 @@ const loggedUserStore = (userTokens: userTokens) => {
 }
 
 const loggedUserRemove = () => {
-  console.log("authService - loggedUser Remove\n");
+  // console.log("authService - loggedUser Remove\n");
   localStorage.removeItem("refresh");
   localStorage.removeItem("access");
   localStorage.removeItem("user");

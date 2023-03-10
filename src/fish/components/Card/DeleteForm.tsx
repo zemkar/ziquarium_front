@@ -14,7 +14,9 @@ const DeleteForm = (fish: { id: number }) => {
         dispatch(deleteFish(fish.id))
             .then((res: any) => {
                 dispatch(getFishes());
-            }, (err: any) => console.log("fish - DeleteForm - error", err))
+            }, (err: any) => {
+                // console.log("fish - DeleteForm - error", err)
+        })
             .finally(() => {
                 setLoading(false);
                 dispatch(hideFishModals());

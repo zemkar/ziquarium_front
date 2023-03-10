@@ -27,7 +27,9 @@ const PlantsIndex = () => {
 
       dispatch(getPlants())
         .then((res: any) => {},
-          (err: any) => { console.log("PlantIndex - useEffect - plantList \n got error:", err) }
+          (err: any) => { 
+            // console.log("PlantIndex - useEffect - plantList \n got error:", err)
+           }
         )
         .finally(() => {
           setLoading(false);
@@ -40,7 +42,9 @@ const PlantsIndex = () => {
     if (!plantsCategories || plantsCategories.length < 1) {
       dispatch(getPlantCategories())
         .then((res: any) => {},
-          (err: any) => { console.log("PlantIndex - useEffect - plantCategories \n got error:", err) }
+          (err: any) => { 
+            // console.log("PlantIndex - useEffect - plantCategories \n got error:", err)
+           }
         )
     }
   }, [dispatch, plantsCategories])

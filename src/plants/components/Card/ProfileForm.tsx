@@ -52,14 +52,16 @@ const ProfileForm = () => {
 
     const onSubmit = (data: any) => {
         data["id"] = plantData?.id
-        console.log("data to mod", data);
+        // console.log("data to mod", data);
         dispatch(modPlant(data))
             .then(
                 (res: any) => {
                     dispatch(getPlants());
                     dispatch(hidePlantModals());
                 },
-                (err: any) => { console.log("modPlantProfile Error:", err); }
+                (err: any) => { 
+                    // console.log("modPlantProfile Error:", err); 
+                }
             )
     }
 

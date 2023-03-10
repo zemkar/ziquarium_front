@@ -10,7 +10,7 @@ const mainLinks = [
     { "title": "Fishes", "link": "/fish", "icon":<img src='icons/fish.svg' alt='' /> },
     { "title": "Tank", "link": "/tank", "icon": <img src='icons/aquarium.svg' alt='' /> },
     { "title": "Plants", "link": "/plants", "icon": <img src='icons/plant.svg' alt='' /> },
-    { "title": "closed", "link": "/protected", "icon": <img src='icons/aquarium.svg' alt='' /> },
+    // { "title": "closed", "link": "/protected", "icon": <img src='icons/aquarium.svg' alt='' /> },
     { "title": "Cart", "link": "/cart", "icon": <img src='icons/shopping_cart.svg' alt='' /> },
     // {"title": "", "link": "", "icon":< />},
 ]
@@ -18,7 +18,7 @@ const mainLinks = [
 const Navbar = () => {
     const dispatch:any = useAppDispatch()
     const { user: currentUser } = useAppSelector((state) => state.authReducers.auth);
-    console.log("path:", window.location.pathname);
+    // console.log("path:", window.location.pathname);
 
 
 
@@ -33,7 +33,7 @@ const Navbar = () => {
 
                 {currentUser ? (
                     <li className='nav-item' key="logout">
-                        <Link className='nav-link' to='#' onClick={() => {dispatch(showLogOut()); console.log("logout pressed");}}> <img src='icons/logout.svg' alt='' /> Logout </Link> 
+                        <Link className='nav-link' to='#' onClick={() => {dispatch(showLogOut());}}> <img src='icons/logout.svg' alt='' /> Logout </Link> 
                     </li>
                 ) : (
                     <li className='nav-item' key="login">

@@ -14,7 +14,9 @@ const DeleteForm = (plant: { id: number }) => {
         dispatch(deletePlant(plant.id))
             .then((res: any) => {
                 dispatch(getPlants());
-            }, (err: any) => console.log("plant - DeleteForm - error", err))
+            }, (err: any) => {
+                // console.log("plant - DeleteForm - error", err)
+        })
             .finally(() => {
                 setLoading(false);
                 dispatch(hidePlantModals());

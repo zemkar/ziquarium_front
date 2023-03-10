@@ -47,7 +47,9 @@ const ProfileForm = () => {
                     dispatch(getFishes());
                     dispatch(hideFishModals());
                 },
-                (err: any) => { console.log("modFishProfile Error:", err); }
+                (err: any) => {
+                    //  console.log("modFishProfile Error:", err); 
+                    }
             )
     }
 

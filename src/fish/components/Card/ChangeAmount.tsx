@@ -18,7 +18,7 @@ const ChangeAmount = () => {
   var data:any = fishList?.filter((e:any) => {return e.id === fishId})[0];
 
   const changeAmount = (val: number) => {
-    console.log("data", data, fishList);
+    // console.log("data", data, fishList);
     
     if (val >= 0) {
       if (fishId) dispatch(changeFishAmount(fishId, val, data.fish_value))}

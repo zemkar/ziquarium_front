@@ -20,7 +20,7 @@ const AddCategory = () => {
                 },
                     (err: any) => {
                         setLoading(false)
-                        console.log("AddCard - createNewCategory Error", err)
+                        // console.log("AddCard - createNewCategory Error", err)
                         if (err.response.status === 400) {
                             setError(err.response.data)
                         }

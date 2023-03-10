@@ -96,7 +96,7 @@ const AddPlantForm = () => {
             }, (err: any) => {
                 setSuccessful(false);
                 setLoading(false);
-                console.log("ERR", err);
+                // console.log("ERR", err);
                 dispatch(hidePlantModals);
             })
                     .finally(() => {

@@ -9,14 +9,14 @@ import { CLEAR_USER_PROFILE, SET_USER_PROFILE } from "./types";
 export const loadUserProfile = () => (dispatch: any) => {
     return userService.getProfile()
         .then((data: any) => {
-            console.log("action user | loadUserProfile \n got data:\n", data.data);
+            // console.log("action user | loadUserProfile \n got data:\n", data.data);
             dispatch({
                 type: SET_USER_PROFILE,
                 payload: data.data,
             });
             return Promise.resolve<userProfile>(data);
         }, (error: any) => {
-            console.log("action user | loadUserProfile \n got error: ", error);
+            // console.log("action user | loadUserProfile \n got error: ", error);
             if (error.response.status !== 401) {
                 toast.error("Can't load profile");
             } else {

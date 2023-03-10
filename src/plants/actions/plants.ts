@@ -22,7 +22,7 @@ import { LOGOUT } from "../../auth/actions/types";
 export const addPlant = (plantData: any) => (dispatch: any) => {
     return plantService.addPlant(plantData)
         ?.then((res: any) => {
-            console.log("addPlant res:\n", res.data);
+            // console.log("addPlant res:\n", res.data);
             toast.success("Plant registered");
             dispatch({
                 type: PLANTS_REGISTER_SUCCESS,
@@ -31,7 +31,7 @@ export const addPlant = (plantData: any) => (dispatch: any) => {
             return Promise.resolve<plantData>(res.data);
         }, (err: any) => {
             toast.error("Can't registering plant");
-            console.log("addPlant got error: \n", err);
+            // console.log("addPlant got error: \n", err);
             dispatch({
                 type: PLANTS_REGISTER_FAIL,
             });
@@ -50,7 +50,7 @@ export const addPlant = (plantData: any) => (dispatch: any) => {
 export const addCategory = (categoryName: string) => (dispatch: any) => {
     return plantService.addPlantsCategory(categoryName)
         ?.then((res: any) => {
-            console.log("plant - actions - addCategory res", res.data);
+            // console.log("plant - actions - addCategory res", res.data);
             toast.success("Category added");
             dispatch({
                 type: PLANTS_ADD_CATEGORY,
@@ -58,7 +58,7 @@ export const addCategory = (categoryName: string) => (dispatch: any) => {
             })
             return Promise.resolve<any>(res.data)
         }, (err: any) => {
-            console.log("plant - actions - addCategory Error", err);
+            // console.log("plant - actions - addCategory Error", err);
             if (err.response.status === 400) {
                 toast.error("Already exist")
             }
@@ -76,9 +76,9 @@ export const addCategory = (categoryName: string) => (dispatch: any) => {
 export const getPlants = () => async (dispatch: any) => {
     return await plantService.getPlants()
         .then((res: any) => {
-            console.log("getPlants res:\n", res);
+            // console.log("getPlants res:\n", res);
             if (res.data.length > 0) {
-            toast.success("Plant loaded");
+            // toast.success("Plant loaded");
             dispatch({
                 type: PLANTS_GET,
                 payload: res.data,
@@ -98,14 +98,14 @@ export const getPlants = () => async (dispatch: any) => {
                     toast.error(err.response.statusText);
                     return Promise.reject(err.response.statusText);
                 }
-                console.log("getPlants err:", err);
+                // console.log("getPlants err:", err);
             })
 }
 
 export const getPlantCategories = () => (dispatch: any) => {
     return plantService.getPlantsCategories()
         .then((res:any) => {
-            console.log("getPlantCategories res:\n", res.data);
+            // console.log("getPlantCategories res:\n", res.data);
             if (res.data.length > 0) {
             dispatch({
                 type: PLANTS_GET_CATEGORIES,
@@ -118,7 +118,7 @@ export const getPlantCategories = () => (dispatch: any) => {
             });}
         })
         .catch((err:any) => {
-            console.log("getPlantCategories error:\n", err);
+            // console.log("getPlantCategories error:\n", err);
             if (err.response.status === 500) {
                 toast.error("Server error")
             }
@@ -129,12 +129,12 @@ export const getPlantCategories = () => (dispatch: any) => {
 export const deletePlant = (id: number) => (dispatch: any) => {
     return plantService.delPlant(id)
     ?.then((res:any) => {
-        console.log("plant - actions - deletePlant res", res);
+        // console.log("plant - actions - deletePlant res", res);
         toast.warning("Plant deleted");
         dispatch({type: PLANTS_DELETE});
         dispatch({type: PLANTS_SET_MODALS_HIDE});
     }, (err:any) => {
-        console.log("Plant - actions - deletePlant error", err);
+        // console.log("Plant - actions - deletePlant error", err);
         if (err.response.status === 401) {
             dispatch({ type: LOGOUT, });
             dispatch({ type: PLANTS_SET_MODALS_HIDE });
@@ -150,12 +150,12 @@ export const deletePlant = (id: number) => (dispatch: any) => {
 
 
 export const modPlant = (plantData: any) => (dispatch: any) => {
-    console.log("DATA TO MOD:", plantData);
+    // console.log("DATA TO MOD:", plantData);
     
     return plantService.modPlant(plantData)
         ?.then((res: any) => {
-            console.log("DATA AFTER MOD:\n", res.data);
-            toast.success("Plant edited");
+            // console.log("DATA AFTER MOD:\n", res.data);
+            toast.success("Plant saved");
             dispatch({
                 type: PLANTS_EDIT_PROFILE_SUCCESS,
                 payload: res.data,
@@ -163,7 +163,7 @@ export const modPlant = (plantData: any) => (dispatch: any) => {
             return Promise.resolve<plantData>(res.data);
         }, (err: any) => {
             toast.error("Can't edit plant");
-            console.log("modPlant got error: \n", err);
+            // console.log("modPlant got error: \n", err);
             dispatch({
                 type: PLANTS_EDIT_PROFILE_FAIL,
             });
