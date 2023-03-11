@@ -29,7 +29,7 @@ const SaleEditor = () => {
     });
 
     const onSubmit = (data: any) => {
-        data["shop_item"] = sellData?.shop_item
+        data["shop_item"] = isSaleEditorShow?.itemId
         // console.log("data to mod", data);
         dispatch(modShopData(data))
             .then(

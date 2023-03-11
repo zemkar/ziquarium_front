@@ -52,7 +52,7 @@ const PlantsIndex = () => {
 // Filter by category
   useEffect(() => {
     if (+categoryFilter !== 0) {
-      setPlantsToPrint(plantList.filter((plant: any) => { return +plant.category === +categoryFilter }));
+      setPlantsToPrint(plantList?.filter((plant: any) => { return +plant.category === +categoryFilter }));
     }
     else {
       setPlantsToPrint(plantList);

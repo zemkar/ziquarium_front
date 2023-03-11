@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch} from "../../../store/hooks";
 import { addCategory, getFishCategories } from '../../actions/fishes';
+import { hideAddCategoryWindow } from '../../actions/fishModals';
 
 const AddCategory = () => {
     const dispatch: any = useAppDispatch();
@@ -15,6 +16,7 @@ const AddCategory = () => {
                 .then((res: any) => {
                     dispatch(getFishCategories())
                     setLoading(false)
+                    dispatch(hideAddCategoryWindow())
                 },
                     (err: any) => {
                         setLoading(false)
