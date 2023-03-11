@@ -33,11 +33,6 @@ const ProfileCard = () => {
   return (
 
     <ListGroup className="list-group">
-      ProfileCard: user is
-      {plantData?.latest_editor === currentUser?.id ? " editor " : ""}
-      {plantData?.user_placeholder === currentUser?.id ? " creator " : ""}
-      {currentUser?.admin ? "admin" : ""}
-      {currentUser?.admin && "!"}
       <ListGroup.Item>
         <Row><Col>Category: </Col><Col>{category?.name || "-?-"}</Col></Row>
         <hr style={{ margin: "0", padding: "0" }} />

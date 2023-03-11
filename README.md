@@ -42,7 +42,7 @@ in terminal run `npm start`
 
 ### ToDo list:
 
-- make a calculator to calculate the bioburden of selected fish in an aquarium
+- make a calculator to calculate the biological load of selected fish in an aquarium
 - open access to discussions and add descriptions to items
 - add aquarium equipment to the database with modifiers for the calculator
 - add the possibility of exchanging goods between users
