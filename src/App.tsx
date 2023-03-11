@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { fillTank } from './tank/actions/tankFilling';
@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 
 function App() {
 
+  const [loaded, setLoaded] = useState(false);
   const location = useLocation();
   const dispatch: any = useAppDispatch()
 
@@ -33,8 +34,8 @@ function App() {
     }
   }, [location]);
 
-  if (!shopItemsData) {
-    dispatch(getShopData())
+  if (!shopItemsData && !loaded) {
+    dispatch(getShopData()).finally(()=>setLoaded(true))
   }
 
   useEffect(() => { // fish & plants re-filler 

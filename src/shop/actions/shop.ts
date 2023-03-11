@@ -24,12 +24,12 @@ export const getShopData = () => (dispatch: any) => {
             dispatch({
                 type: SHOP_GET_ITEMS_FAIL,
             });
-            if (err.response.status === 401) {
+            if (err?.response?.status === 401) {
                 dispatch({ type: LOGOUT, });
                 toast.error("Authorization error, please login again");
             }
-            if (err.response.status === 400) {
-                var msg: string = err.response?.data || err.response?.data?.name || "Bad request"
+            if (err?.response?.status === 400) {
+                var msg: string = err?.response?.data || err?.response?.data?.name || "Bad request"
                 toast.error(msg);
             }
             return Promise.reject(err);
