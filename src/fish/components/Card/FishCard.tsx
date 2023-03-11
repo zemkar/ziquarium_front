@@ -83,18 +83,21 @@ const FishCard = ({ fish }: any) => {
                     />
 
                     <ListGroup className="list-group-flush">
-                        <ListGroup.Item onClick={() => showProfile(false, true)}>
+                        {!fish?.approved && <>Pending approval<img height="20" width="20" src='icons/visibility_off.svg' alt='' /></>}
+                        {fish.id && fish.id > 0 ? (
+                            <ListGroup.Item onClick={() => { if (fish.id && fish.id > 0) showProfile(false, true) }}>
                             <strong> {fish?.name} </strong> {fish?.fish_value > 0 && <><br /> ({fish?.fish_value} pts)</>}<br />
-                            {fish?.scientific_name}
-                        </ListGroup.Item>
+                                {fish?.scientific_name}
 
-                        <ListGroup className='d-grid gap-1'>
+                                <ListGroup className='d-grid gap-1'>
                             {saleData?.price && saleData.price > 0 ? 
                                 <div className='price-block'>
                                     <div style={{color: saleData?.sale_status ? "red" : "black"}}> ${formatPrice(saleData?.price)} {saleData?.sale_status && <sup>-{saleData?.sale_discount}%</sup>}</div>  
                                     <div>| In stock: {saleData?.quantity}</div>
                                 </div> : "Not in sell"}
                         </ListGroup>
+
+                            </ListGroup.Item>) : <strong> {fish?.name} </strong>}
 
                         {fish?.id !== 0 && <ListGroup.Item>
                             <div className="d-grid gap-1">

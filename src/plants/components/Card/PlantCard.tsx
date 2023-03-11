@@ -80,7 +80,7 @@ const PlantCard = ({ plant }: any) => {
                     />
 
                     <ListGroup className="list-group-flush">
-                        {!plant?.approved && <><img height="20" width="20" src='icons/visibility_off.svg' alt='' />Pending approval</>}
+                        {!plant?.approved && <>Pending approval<img height="20" width="20" src='icons/visibility_off.svg' alt='' /></>}
                         {plant.id && plant.id > 0 ? (
                             <ListGroup.Item onClick={() => { if (plant.id && plant.id > 0) showProfile(false, true) }}>
                                 <strong> {plant?.name} </strong> {plant?.plant_value > 0 && <><br /> ({plant?.plant_value} pts)</>}<br />
