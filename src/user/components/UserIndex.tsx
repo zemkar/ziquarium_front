@@ -5,7 +5,7 @@ import UserOrders from './UserOrders'
 
 const UserIndex = () => {
   return (
-    <div className='price-block'><Profile /><UserOrders />
+    <div className='profile-block'><Profile /><UserOrders />
     
     
     </div>

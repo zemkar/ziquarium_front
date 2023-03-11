@@ -61,6 +61,9 @@ tr:nth-child(odd) {
   background-color: rgba(248, 203, 78, 0.586);
 }
 
-.pseudo-button {
-  cursor: pointer;
+.profile-block {
+  max-width: 90vw;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
 }

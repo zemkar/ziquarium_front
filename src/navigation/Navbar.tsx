@@ -17,7 +17,7 @@ const mainLinks = [
 
 const Navbar = () => {
     const dispatch:any = useAppDispatch()
-    const { user: currentUser } = useAppSelector((state) => state.authReducers.auth);
+    const { user } = useAppSelector((state) => state.authReducers.auth);
     // console.log("path:", window.location.pathname);
 
 
@@ -31,7 +31,7 @@ const Navbar = () => {
                     </li>
                 ))}
 
-                {currentUser ? (
+                {user ? (
                     <li className='nav-item' key="logout">
                         <Link className='nav-link' to='#' onClick={() => {dispatch(showLogOut());}}> <img src='icons/logout.svg' alt='' /> Logout </Link> 
                     </li>
@@ -40,7 +40,7 @@ const Navbar = () => {
                         <Link className='nav-link' to='#' onClick={() => dispatch(showLogin())}><img src='icons/login.svg' alt='' /> Login </Link> 
                     </li>
                     )}
-                {currentUser ? (
+                {user ? (
                     <li className='nav-item' key="profile">
                         <Link className='nav-link' to='profile'><img src='icons/profile.svg' alt='' /> Profile </Link>
                     </li>

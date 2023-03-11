@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { showLogin } from '../../auth/actions/loginLogoutShow';
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { cartItemAmount } from '../actions/cart';
@@ -37,6 +38,9 @@ const ToBuyCard = () => {
   // console.log("shopItemsData", sellData, shopItemsData, isSaleDataShow, itemData, cartItems);
 
   const toBuy = () => {
+    if (!user) {
+      dispatch(showLogin())
+    } else {
     var itemToOrder = {
       "product_name": itemData?.name,
       "product": isSaleDataShow?.itemId,
@@ -52,7 +56,7 @@ const ToBuyCard = () => {
         navigate('/order', { state: { order: res.id } });
       }, (err: any) => {
         // console.log(err);
-      })
+      })}
   }
 
 

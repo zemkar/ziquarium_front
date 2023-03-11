@@ -159,7 +159,7 @@ const Profile = () => {
   }, [loading, StateProfile])
 
   return (
-    <div className="col-md-12">
+    < >
       {!currentUser && <Navigate to="/" />}
       <div className="card card-container" style={{ width: "30rem", maxWidth: "40vw" }}>
         <header className="jumbotron card-header">
@@ -217,7 +217,7 @@ const Profile = () => {
           ? `You have clicked "${clickedButton}"`
           : "No button clicked yet"}
       </div>
-    </div>
+    </ >
   );
 };
 

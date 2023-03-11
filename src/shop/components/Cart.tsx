@@ -7,6 +7,7 @@ import { cartItemAmount, clearCart, restoreCart } from '../actions/cart';
 import { itemInCart } from '../interfaces';
 import { createOrder } from '../actions/order';
 import { formatPrice } from '../service/shopService';
+import { showLogin } from '../../auth/actions/loginLogoutShow';
 
 const Cart = () => {
 
@@ -86,6 +87,9 @@ const Cart = () => {
     }
 
     const orderFromCart = () => {
+        if (!user) {
+          dispatch(showLogin())
+        } else {
         const orderItems = cartItems.map((e: any) => {
             var itemToOrder = {
                 "name": getItemName(e.id),
@@ -105,7 +109,7 @@ const Cart = () => {
             }, (err: any) => {
                 // console.log(err);
             })
-
+        }
     }
 
 
