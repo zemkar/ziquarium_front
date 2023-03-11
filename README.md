@@ -24,7 +24,7 @@ For some products, you can set temporary promotional discounts and/or quantity d
 
 
 
- [Backend using Django, DRF](https://github.com/zemkar/ziquarium)
+ [Backend using Django, DRF](https://github.com/zemkar/ziquarium_django)
  
 ### Quick Start
  Clone this repository to your local machine.
