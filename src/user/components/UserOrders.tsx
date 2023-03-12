@@ -8,7 +8,7 @@ import OrderModal from './OrderModal';
 const UserOrders = () => {
 
     const dispatch: any = useAppDispatch()
-    const { userOrders, userPayments } = useAppSelector(state => state.shopReducer.userOrdersReducer);
+    const { userOrders } = useAppSelector(state => state.shopReducer.userOrdersReducer);
     const { order } = useAppSelector((state) => state.userProfileReducers.userOrderReducer);
     // console.log("payments:",userPayments, "\n orders:", userOrders);
 
@@ -19,7 +19,7 @@ const UserOrders = () => {
             
             dispatch(getOrders())
         }
-    }, [order])
+    }, [order, dispatch])
     
     // Load user orders
     useEffect(() => {

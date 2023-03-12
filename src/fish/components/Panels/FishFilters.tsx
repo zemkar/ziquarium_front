@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Form from 'react-bootstrap/Form';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addFishFilter } from '../../actions/fishFilter';
@@ -14,10 +14,6 @@ const FishFilters = () => {
   const categoryChanger = (category: string) => {
     dispatch(addFishFilter({categoryFilter:category}))
   }
-
-  // useEffect(() => {
-  //   console.log("categoryFilter", categoryFilter)
-  // }, [categoryFilter])
   
   return (
     <div>

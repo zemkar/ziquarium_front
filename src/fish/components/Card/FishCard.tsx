@@ -45,7 +45,7 @@ const FishCard = ({ fish }: any) => {
         } else dispatch(hideFishModals())
     }
 
-    const goToFullProfile = () => { console.log("goToFullProfile WIP"); }
+    // const goToFullProfile = () => { console.log("goToFullProfile WIP"); }
 
     const toChangeAmount = (status: boolean) => {
         setLoading(false);

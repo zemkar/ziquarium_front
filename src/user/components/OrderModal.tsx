@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Modal } from 'react-bootstrap';
-import { getOrders } from '../../shop/actions/userOrders';
 import { formatPrice } from '../../shop/service/shopService';
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { clearUserOrder, deleteUserOrder } from '../actions/userOrder';

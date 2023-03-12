@@ -28,15 +28,15 @@ const login = async (username: string, password: string) => {
   return user;
 };
 
-const logout = async (userTokens: userTokens) => {
+const logout = (userTokens: userTokens) => {
   // console.log("authService - logout\n");
   try {
-    const res = await axios
+    return axios
       .post(Z_URL.LOGOUT, { 'refresh': userTokens.refresh }, {
         headers: authHeader(userTokens.access),
       });
     // console.log("authService - logout success\n", res);
-  } catch (res_1) {
+  } catch {
     // console.log("authService - logout error\n", res_1);
   }
 }

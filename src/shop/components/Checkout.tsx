@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import { useAppSelector } from '../../store/hooks';
 import {PROTOCOL_HTTPS, STRIPE_KEY} from '../../service/constants';
-import { redirect } from 'react-router-dom';
 
 const stripePromise = loadStripe(STRIPE_KEY);
 
