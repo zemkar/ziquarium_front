@@ -63,7 +63,7 @@ const OrderModal = () => {
                     payment status: {paymentToShow}<br/>
                     <hr />
                     order items: <br />
-                    {orderToShow?.order_items?.map((item:any) => <p key={item.id}>{item?.product_name || "***"} | {item?.quantity} {item?.cost}</p>)}
+                    {orderToShow?.order_items?.map((item:any) => <p key={item.id}>{item?.product_name || "***"} | {item?.quantity} pts. -  {formatPrice(item?.cost)}</p>)}
 
                 </Modal.Body>
             </Modal>

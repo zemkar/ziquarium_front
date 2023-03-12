@@ -113,6 +113,7 @@ const Cart = () => {
     }
 
 
+    calculateTotal()
     return (
         <div style={{ padding: "3%" }}>
             <table style={{ width: "90%" }}>
