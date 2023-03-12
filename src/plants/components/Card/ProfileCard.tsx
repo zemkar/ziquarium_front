@@ -9,7 +9,6 @@ import { plantData } from '../../interfaces';
 const ProfileCard = () => {
 
 
-  const { user: currentUser } = useAppSelector(state => state.authReducers.auth);
   const { isProfileShow } = useAppSelector(state => state.plantsReducer.plantModals);
   const { plantList } = useAppSelector(state => state.plantsReducer.plants);
   const { plantsCategories } = useAppSelector(state => state.plantsReducer.plantsCategories);

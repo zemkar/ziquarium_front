@@ -12,10 +12,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { userLoginData } from '../interfaces';
 import { clearFishes } from '../../fish/actions/fishes';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginComponent = () => {
 
+    let navigate = useNavigate();
+    
     const DEF_PASS = "" // for test & debug
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -62,6 +65,12 @@ const LoginComponent = () => {
             });
     };
 
+    const toRegistration = () => {
+        dispatch(hideLogin())
+        
+        navigate('/registration');
+    }
+
     return (
         <>
             <Modal
@@ -95,6 +104,13 @@ const LoginComponent = () => {
                                     <span className="spinner-border spinner-border-sm"></span>
                                 )}
                                 <span>Login</span>
+                            </button>
+                            &nbsp; &nbsp;
+                            <button onClick={()=>{toRegistration}} className="btn btn-primary btn-block" disabled={loading}>
+                                {loading && (
+                                    <span className="spinner-border spinner-border-sm"></span>
+                                )}
+                                <span>Registration</span>
                             </button>
                         </div>
                     </form>
