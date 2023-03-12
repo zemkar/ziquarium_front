@@ -92,7 +92,7 @@ const Cart = () => {
         } else {
         const orderItems = cartItems.map((e: any) => {
             var itemToOrder = {
-                "name": getItemName(e.id),
+                "product_name": getItemName(e.id),
                 "product": e.id,
                 "quantity": e.amount,
                 "price": e.price,
