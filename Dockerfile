@@ -7,6 +7,7 @@ WORKDIR /usr/src/app/frontend/
 # Copy app files
 COPY . /usr/src/app/frontend/
 # ==== BUILD =====
+RUN npm install
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci 
 # Build the app
