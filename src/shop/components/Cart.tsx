@@ -107,7 +107,7 @@ const Cart = () => {
                 navigate('/order', { state: { order: res.id } });
                 dispatch(clearCart())
             }, (err: any) => {
-                // console.log(err);
+                console.log(err);
             })
         }
     }
