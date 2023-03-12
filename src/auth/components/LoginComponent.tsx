@@ -107,9 +107,6 @@ const LoginComponent = () => {
                             </button>
                             &nbsp; &nbsp;
                             <button onClick={()=>{toRegistration()}} className="btn btn-primary btn-block" disabled={loading}>
-                                {loading && (
-                                    <span className="spinner-border spinner-border-sm"></span>
-                                )}
                                 <span>Registration</span>
                             </button>
                         </div>

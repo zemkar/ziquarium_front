@@ -22,6 +22,8 @@ const RegistrationComponent = () => {
     const [errPassword2, setErrPassword2] = useState([])
     const [errEmail, setErrEmail] = useState([])
     const [errPhone, setErrPhone] = useState([])
+    const [errFName, setErrFName] = useState([])
+    const [errLName, setErrLName] = useState([])
     const [successful, setSuccessful] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -45,10 +47,10 @@ const RegistrationComponent = () => {
             .required('Confirm Password is required')
             .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
         first_name: Yup.string()
-            .notRequired()
+            .required("First name is required")
             .max(20, "First name must not exceed 20 characters"),
         last_name: Yup.string()
-            .notRequired()
+            .required("Last name is required")
             .max(20, "Last name must not exceed 20 characters"),
     });
 
@@ -71,7 +73,8 @@ const RegistrationComponent = () => {
         setErrPassword2([]);
         setErrEmail([]);
         setErrPhone([]);
-
+        setErrFName([]);
+        setErrLName([]);
 
 
         dispatch(registration(data))
@@ -100,6 +103,12 @@ const RegistrationComponent = () => {
                 }
                 if (err.password2) {
                     setErrPassword2(err.password2)
+                }
+                if (err.first_name) {
+                    setErrFName(err.first_name)
+                }
+                if (err.last_name) {
+                    setErrLName(err.last_name)
                 }
             })
 
@@ -186,17 +195,27 @@ const RegistrationComponent = () => {
                                 <div className="form-group">
                                     <label>First name</label>
                                     <input type="text"
-                                        className="form-control"
                                         {...register('first_name', { pattern: /^[A-Za-z]/i })}
+                                        className={`form-control ${errors.first_name || errFName.length > 0 ? 'is-invalid' : ''
+                                    }`}
                                     />
+                                    <div className="invalid-feedback">
+                                        {errors.first_name?.message}
+                                        {errFName.length > 0 && errFName.map((err, i) => <div key={i}>{err}</div>)}
+                                    </div>
                                 </div>
 
                                 <div className="form-group">
                                     <label>Last name</label>
                                     <input type="text"
-                                        className="form-control"
                                         {...register('last_name', { pattern: /^[A-Za-z]/i })}
+                                        className={`form-control ${errors.last_name || errLName.length > 0 ? 'is-invalid' : ''
+                                    }`}
                                     />
+                                    <div className="invalid-feedback">
+                                        {errors.last_name?.message}
+                                        {errLName.length > 0 && errLName.map((err, i) => <div key={i}>{err}</div>)}
+                                    </div>
                                 </div><br />
 
                                 <div className="form-group">
