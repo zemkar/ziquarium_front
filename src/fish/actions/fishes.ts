@@ -168,9 +168,11 @@ export const modFish = (fishData: any) => (dispatch: any) => {
                 toast.error("Authorization error, please login again");
             }
             if (err.response.status === 400) {
+                
                 var msg: string = err.response?.data || err.response?.data?.name || "Bad request"
                 toast.error(msg);
             }
+                console.log(err);
             return Promise.reject(err);
         })
 }

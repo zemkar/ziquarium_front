@@ -73,7 +73,6 @@ function App() {
         theme="light"
       /><div className='context'>
         <Outlet /></div>
-
     </div>
   );
 }

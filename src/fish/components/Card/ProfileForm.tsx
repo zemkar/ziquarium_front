@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Card from "react-bootstrap/Card";
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getFishes, modFish } from '../../actions/fishes';
 import AddCategory from './AddCategory';
 import { hideAddCategoryWindow, hideFishModals, showAddCategoryWindow } from '../../actions/fishModals';
+import Z_URL from '../../../service/constants';
 
 const ProfileForm = () => {
     const dispatch: any = useAppDispatch();
@@ -23,13 +25,38 @@ const ProfileForm = () => {
     const { isEditShow } = useAppSelector(state => state.fishesReducer.fishModals);
     const { fishCategories } = useAppSelector(state => state.fishesReducer.categories);
     const { user: currentUser } = useAppSelector(state => state.authReducers.auth);
-    
+
     var fishData: any = fishList?.filter((e: any) => { return e.id === isEditShow.fishId })[0];
 
     const { status: showAddCategory } = useAppSelector(state => state.fishesReducer.fishAddCategoryReducer);
 
 
-    const validationSchema = Yup.object().shape({});
+    const MAX_FILE_SIZE = 6000000;
+    const getExtension = (filename: string) => {
+        if (filename) return filename.split('.').pop() || "";
+        return "";
+    }
+    
+    const validationSchema = Yup.object().shape({
+        file: Yup.mixed()
+            .test({
+                message: 'Please provide a supported file type',
+                test: (file, context) => {
+                    const isValid = ['png', 'jpg', 'jpeg', 'gif'].includes(getExtension(file?.name));
+                    if (!file) return true;
+                    if (!isValid) context?.createError();
+                    return isValid;
+                }
+            })
+            .test({
+                message: `File too big, can't exceed ${MAX_FILE_SIZE}`,
+                test: (file) => {
+                    if (!file) return true;
+                    const isValid = file?.size < MAX_FILE_SIZE;
+                    return isValid;
+                }
+            })
+        });
     const {
         register,
         handleSubmit,
@@ -40,6 +67,7 @@ const ProfileForm = () => {
 
     const onSubmit = (data: any) => {
         data["id"] = fishData?.id
+        data["image"] = data.image[0] || ""
 
         dispatch(modFish(data))
             .then(
@@ -49,11 +77,11 @@ const ProfileForm = () => {
                 },
                 (err: any) => {
                     //  console.log("modFishProfile Error:", err); 
-                    }
+                }
             )
     }
 
-    
+
     const handlerShowAddCategory = (status: boolean) => {
         if (status) dispatch(showAddCategoryWindow())
         else dispatch(hideAddCategoryWindow())
@@ -62,24 +90,30 @@ const ProfileForm = () => {
     return (
 
         < >
-        {showAddCategory ? <>
-            <Button variant="outline-success" onClick={() => { handlerShowAddCategory(false) }} size="sm">
-                Back to new fish editor
-            </Button> &nbsp;
-            <AddCategory />
+            {showAddCategory ? <>
+                <Button variant="outline-success" onClick={() => { handlerShowAddCategory(false) }} size="sm">
+                    Back to new fish editor
+                </Button> &nbsp;
+                <AddCategory />
             </> : <>
+
+                <Card.Img
+                    className='profile-image-in-editor'
+                    variant="top"
+                    src={Z_URL.SERVER + (fishData?.image || "/media/SomeFish.png")}
+                />
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <ListGroup className="list-group">
                         <ListGroup.Item>
                             <Row><Col>Category: </Col><Col>
-                            <Form.Select aria-label="Select category" size="sm" {...register('category')} defaultValue={fishData?.category}>
-                                {fishCategories?.map((cat: fishCategory) => <option key={cat.id} value={cat.id}>{cat.name}</option>) || <option value='2'>undefined</option>}</Form.Select></Col>
-                            <Col>
+                                <Form.Select aria-label="Select category" size="sm" {...register('category')} defaultValue={fishData?.category}>
+                                    {fishCategories?.map((cat: fishCategory) => <option key={cat.id} value={cat.id}>{cat.name}</option>) || <option value='2'>undefined</option>}</Form.Select></Col>
+                                <Col>
                                     <Button variant="outline-secondary" onClick={() => { handlerShowAddCategory(true) }} size="sm">
                                         Add new category
                                     </Button>
 
-                            </Col></Row>
+                                </Col></Row>
                             <hr style={{ margin: "1px", padding: "0" }} />
                             <Row><Col>Scientific name: </Col><Col><Form.Control id='scientific_name' {...register('scientific_name')} defaultValue={fishData?.scientific_name} size="sm" /></Col></Row>
                             <hr style={{ margin: "1px", padding: "0" }} />
@@ -119,8 +153,14 @@ const ProfileForm = () => {
                             <Row><Col>Average length: </Col></Row>
                             <Row><Col style={{ paddingLeft: "5%" }}>Male -    </Col><Col><Form.Control type='number' id='male_average_length' {...register('male_average_length')} defaultValue={fishData?.male_average_length} size="sm" /></Col></Row>
                             <Row><Col style={{ paddingLeft: "5%" }}>Female -  </Col><Col><Form.Control type='number' id='female_average_length' {...register('female_average_length')} defaultValue={fishData?.female_average_length} size="sm" /></Col></Row>
-                        
-                        
+
+
+                            <hr style={{ margin: "1px", padding: "0" }} />
+                            <Row><Col>Image: </Col><Col><Form.Control  type="file" accept="image/jpeg,image/png,image/gif" id='image' {...register('image')} size="sm" /></Col></Row>
+                                                                        
+
+                            <hr style={{ margin: "1px", padding: "0" }} />
+                            <hr />
                             <hr style={{ margin: "1px", padding: "0" }} />
                             <Row><Col>User placeholder: </Col><Col><Form.Control id='user_placeholder' {...register('user_placeholder')} defaultValue={fishData?.user_placeholder} size="sm" disabled={!currentUser?.admin} /></Col></Row>
 

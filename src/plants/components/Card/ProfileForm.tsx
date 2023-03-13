@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Card from "react-bootstrap/Card";
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { getPlants, modPlant } from '../../actions/plants';
 import AddCategory from './AddCategory';
 import { hideAddCategoryWindow, hidePlantModals, showAddCategoryWindow } from '../../actions/plantsModals';
+import Z_URL from '../../../service/constants';
 
 
 const ProfileForm = () => {
@@ -40,7 +42,33 @@ const ProfileForm = () => {
     ]
 
 
-    const validationSchema = Yup.object().shape({});
+    const MAX_FILE_SIZE = 6000000;
+    const getExtension = (filename: string) => {
+        if (filename) return filename.split('.').pop() || "";
+        return "";
+    }
+
+    const validationSchema = Yup.object().shape({
+        
+        file: Yup.mixed()
+            .test({
+                message: 'Please provide a supported file type',
+                test: (file, context) => {
+                    const isValid = ['png', 'jpg', 'jpeg', 'gif'].includes(getExtension(file?.name));
+                    if (!file) return true;
+                    if (!isValid) context?.createError();
+                    return isValid;
+                }
+            })
+            .test({
+                message: `File too big, can't exceed ${MAX_FILE_SIZE}`,
+                test: (file) => {
+                    if (!file) return true;
+                    const isValid = file?.size < MAX_FILE_SIZE;
+                    return isValid;
+                }
+            })
+    });
 
     const {
         register,
@@ -52,6 +80,7 @@ const ProfileForm = () => {
 
     const onSubmit = (data: any) => {
         data["id"] = plantData?.id
+        data["image"] = data.image[0] || ""
         // console.log("data to mod", data);
         dispatch(modPlant(data))
             .then(
@@ -79,6 +108,12 @@ const ProfileForm = () => {
                 </Button> &nbsp;
                 <AddCategory />
             </> : <>
+
+<Card.Img
+    className='profile-image-in-editor'
+    variant="top"
+    src={Z_URL.SERVER + (plantData?.image || "/media/SomeFish.png")}
+/>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <ListGroup className="list-group">
                         <ListGroup.Item>
@@ -153,6 +188,13 @@ const ProfileForm = () => {
                             <Row><Col>Water change: </Col><Col><Form.Control id='water_change' {...register('water_change')} defaultValue={plantData?.water_change} size="sm" /></Col></Row>
 
 
+                            <hr style={{ margin: "2px", paddingTop: "0" }} />
+                            <hr style={{ margin: "2px", paddingBottom: "0" }} />
+                            <Row><Col>Image: </Col><Col><Form.Control  type="file" accept="image/jpeg,image/png,image/gif" id='image' {...register('image')} size="sm" /></Col></Row>
+                                    
+
+                            <hr style={{ margin: "1px", padding: "0" }} />
+                            <hr />
                             <hr style={{ margin: "1px", padding: "0" }} />
                             <Row><Col>User placeholder: </Col><Col><Form.Control id='user_placeholder' {...register('user_placeholder')} defaultValue={plantData?.user_placeholder} size="sm" disabled={!currentUser?.admin} /></Col></Row>
 

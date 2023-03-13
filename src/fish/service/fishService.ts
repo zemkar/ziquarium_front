@@ -41,7 +41,7 @@ const addFishCategory = (name: string) => {
 const modFish = (fishData: fish) => {
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        return axios.put(Z_URL.FISH + fishData.id + "/", fishData, { headers: authHeader(accessToken) })
+        return axios.put(Z_URL.FISH + fishData.id + "/", fishData, { headers: {"Content-Type": "multipart/form-data" ,Authorization: "Bearer " + accessToken}  })
     }
 }
 

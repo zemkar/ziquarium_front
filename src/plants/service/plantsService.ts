@@ -43,7 +43,7 @@ const addPlantsCategory = (name: string) => {
 const modPlant = (plantData: plantData) => {
     var accessToken: string | null = localStorage.getItem('access')
     if (accessToken) {
-        return axios.put(Z_URL.PLANTS + plantData.id + "/", plantData, { headers: authHeader(accessToken) })
+        return axios.put(Z_URL.PLANTS + plantData.id + "/", plantData, { headers: {"Content-Type": "multipart/form-data" ,Authorization: "Bearer " + accessToken}  })
     }
 }
 

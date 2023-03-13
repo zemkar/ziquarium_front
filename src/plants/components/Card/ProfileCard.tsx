@@ -2,6 +2,8 @@ import React from 'react'
 import ListGroup from "react-bootstrap/ListGroup";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Card from "react-bootstrap/Card";
+import Z_URL from '../../../service/constants';
 
 import { useAppSelector } from "../../../store/hooks";
 import { plantData } from '../../interfaces';
@@ -32,6 +34,11 @@ const ProfileCard = () => {
   return (
 
     <ListGroup className="list-group">
+    <Card.Img
+    className='profile-image-in-card'
+      variant="top"
+      src={Z_URL.SERVER + (plantData?.image || "/media/SomeFish.png")}
+    />
       <ListGroup.Item>
         <Row><Col>Category: </Col><Col>{category?.name || "-?-"}</Col></Row>
         <hr style={{ margin: "0", padding: "0" }} />
