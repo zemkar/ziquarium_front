@@ -27,14 +27,13 @@ For some products, you can set temporary promotional discounts and/or quantity d
  [Backend using Django, DRF](https://github.com/zemkar/ziquarium_django)
  
 ### Quick Start
- Clone this repository to your local machine.
 ###### if you use Docker:
-- Create image from git:
-
+- Create images from git:
+ `docker build https://github.com/zemkar/ziquarium_api.git -t ziquarium-api`
  `docker build https://github.com/zemkar/ziquarium_front.git -t ziquarium-react`
 
-- Run it:
-
+- Run them:
+ `docker run -p 8000:8000 -d ziquarium-api`
  `docker run -p 3000:80 -d ziquarium-react`
  
 - Check it:  http://localhost:3000
@@ -42,6 +41,7 @@ For some products, you can set temporary promotional discounts and/or quantity d
 
 ###### without Docker:
 - make sure you have it installed node.js
+ - Clone this repository to your local machine.
 - from the project folder cloned from github
 in terminal run `npm start`
 - after launch, node.js will open the project page in the browser
