@@ -55,7 +55,7 @@ function App() {
     // console.log("filled", isFilled.current);
   }, [fishes, plants, isFilled, dispatch])
 
-
+console.log(process.env.REACT_APP_URL)
   return (
     <div className="App">
       <Navbar />
