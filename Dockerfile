@@ -17,6 +17,7 @@ RUN npm run build
 # Bundle static assets with nginx
 FROM nginx:1.23.3-alpine as production
 ENV NODE_ENV production
+ENV REACT_APP_URL=http://127.0.0.1:3000
 # Copy built assets from `builder` image
 COPY --from=builder /usr/src/app/frontend/build /usr/share/nginx/html
 # Add your nginx.conf
