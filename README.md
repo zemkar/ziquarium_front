@@ -50,6 +50,25 @@ For some products, you can set temporary promotional discounts and/or quantity d
 in terminal run `npm start`
 - after launch, node.js will open the project page in the browser
 
+
+Test users: 
+> - `admin : 951Qsc62Ax3z`
+>>  Can create, delete, edit and aprove editions of items
+>
+>> Can buy
+
+> - `editor : 951Qsc62Ax3z`
+>> Can create and edit items
+>
+>> Can buy
+
+> - `user : 951Qsc62Ax3z`
+>>  Can buy
+
+
+
+------------
+
 ### ToDo list:
 
 - make a calculator to calculate the biological load of selected fish in an aquarium
