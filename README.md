@@ -29,11 +29,15 @@ For some products, you can set temporary promotional discounts and/or quantity d
 ### Quick Start
 ###### if you use Docker:
 - Create images from git:
+
  `docker build https://github.com/zemkar/ziquarium_api.git -t ziquarium-api`
+
  `docker build https://github.com/zemkar/ziquarium_front.git -t ziquarium-react`
 
 - Run them:
+
  `docker run -p 8000:8000 -d ziquarium-api`
+ 
  `docker run -p 3000:80 -d ziquarium-react`
  
 - Check it:  http://localhost:3000
