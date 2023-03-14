@@ -29,9 +29,15 @@ For some products, you can set temporary promotional discounts and/or quantity d
 ### Quick Start
  Clone this repository to your local machine.
 ###### if you use Docker:
-- from the project folder cloned from github
- in terminal run `docker build . -t ziquarium-react` for creating image
-- run `docker run -p 3000:80 -d ziquarium-react` for launching and [go check how it work](http://localhost:3000)
+- Create image from git:
+
+ `docker build https://github.com/zemkar/ziquarium_front.git -t ziquarium-react`
+
+- Run it:
+
+ `docker run -p 3000:80 -d ziquarium-react`
+ 
+- Check it:  http://localhost:3000
 
 
 ###### without Docker:
