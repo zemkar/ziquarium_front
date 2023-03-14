@@ -3,11 +3,11 @@
 export const PROTOCOL_HTTPS = false;
 export const STRIPE_KEY = 'pk_test_51MecxZK7eRk186VKGGCEA0WjB48f3jI8e74geU7HEfKbMk4enptqEb9rd4UvzVZhJMUx7ZDPWZ0HRa0f3Paf1B8t00QPnTpws4';
 
-const SERVER =  process.env.REACT_APP_URL ? process.env.REACT_APP_URL : "https://ziquarium-api.onrender.com";
+const SERVER =  "https://ziquarium-api.onrender.com";
 
-// const SERVER =  process.env.REACT_APP_URL ? process.env.REACT_APP_URL : "http://127.0.0.1:8000";
-// const SERVER =  process.env.REACT_APP_URL ? process.env.REACT_APP_URL : "http://localhost:8000/";
-// const SERVER =  process.env.REACT_APP_URL ? process.env.REACT_APP_URL : "http://192.168.1.123:8000";
+// const SERVER = "http://127.0.0.1:8000";
+// const SERVER = "http://localhost:8000/";
+// const SERVER = "http://192.168.1.123:8000";
 
 const LOGIN = `${SERVER}/api/login/`;
 const LOGOUT = `${SERVER}/api/logout/`;
